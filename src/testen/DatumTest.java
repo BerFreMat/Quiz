@@ -5,7 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Date;
+
+import utils.DagException;
 import utils.Datum;
+import utils.DatumException;
+import utils.DatumStringException;
+import utils.MaandException;
 
 public class DatumTest {
 
@@ -13,99 +18,84 @@ public class DatumTest {
 	 * @param args
 	 */
 	
-	private Date geldigDateObject;
+	private Datum geldigDatumObject;
 
 	@Before
 	public void setUp() throws Exception {
 		//Datum 01/01/2012
-		Date geldigDateObject = new Date(112,1,1);
+		geldigDatumObject = new Datum(1,1,2012);
 	}
 
 	@Test
-	public void test_ConstructorZonderParam_Aanvaard_GeenParameter() {
+	public void test_ConstructorZonderParam_Aanvaard_GeenParameter() throws DagException, MaandException {
 		Datum geldigeDatum = null;
 		geldigeDatum = new Datum();
 		assertNotNull(geldigeDatum);
 	}	
 	
 	@Test
-	public void test_Constructor1Param_Aanvaard_GeldigDateObject() {
-		Datum geldigeDatum = new Datum(geldigDateObject);
-		assertEquals("1/1/2012",Datum.getDatumInEuropeesFormaat());
+	public void test_Constructor1Param_Aanvaard_GeldigDatumObject() throws DatumException, DagException, MaandException {
+		Datum geldigeDatum = new Datum(geldigDatumObject);
+		assertEquals("1/1/2012",geldigeDatum.toStringInEuropees());
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
-	public void test_Constructor1Param_Exception_Als_DateObjectIsNull() {
-		Date nullDateObject = null ;
-		Datum geldigeDatum = new Datum(nullDateObject);
+	public void test_Constructor1Param_Exception_Als_DateObjectIsNull() throws DatumException, DagException, MaandException {
+		Datum nullDatumObject = null ;
+		Datum testDatum = new Datum(nullDatumObject);
 	}	
 		
 	@Test
-	public void test_Constructor3Param_Aanvaard_3GeldigeParameters() {
+	public void test_Constructor3Param_Aanvaard_3GeldigeParameters() throws DagException, MaandException {
 		Datum geldigeDatum = new Datum(10,12,2010);
-		assertEquals("10/12/2010",Datum.getDatumInEuropeesFormaat());
+		assertEquals("10/12/2010",geldigeDatum.toStringInEuropees());
 	}	
 
 	@Test
-	public void test_Constructor3Param_Aanvaard_KleineGetallen() {
+	public void test_Constructor3Param_Aanvaard_KleineGetallen() throws DagException, MaandException {
 		Datum geldigeDatum = new Datum(1,1,0);
-		assertEquals("1/1/0",Datum.getDatumInEuropeesFormaat());
+		assertEquals("1/1/0",geldigeDatum.toStringInEuropees());
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_Constructor3Param_Exception_Als_NegatieveDag() {
+	@Test (expected = DagException.class)
+	public void test_Constructor3Param_Exception_Als_NegatieveDag() throws DagException, MaandException {
 		Datum onGeldigeDatum = new Datum(-10,12,2010);
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_Constructor3Param_Exception_Als_NegatieveDagMaand() {
+	@Test (expected = MaandException.class)
+	public void test_Constructor3Param_Exception_Als_NegatieveDagMaand() throws DagException, MaandException {
 		Datum onGeldigeDatum = new Datum(10,-12,2010);
 	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_Constructor3Param_Exception_Als_geenInt() {
-		Datum onGeldigeDatum = new Datum(0.1,0.5,2010);
-	}	
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_Constructor3Param_Exception_Als_nullArgumenten() {
-		Datum onGeldigeDatum = new Datum(null,null,null);
-	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_Constructor3Param_Exception_Als_geenInt() {
-		Datum onGeldigeDatum = new Datum(0.1,0.5,2010);
-	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_Constructor3Param_Exception_Als_ongeldigeDag() {
+
+	@Test (expected = DagException.class)
+	public void test_Constructor3Param_Exception_Als_ongeldigeDag() throws DagException, MaandException {
 		Datum onGeldigeDatum = new Datum(0,10,2010);
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_Constructor3Param_Exception_Als_ongeldigeMaand() {
+	@Test (expected = MaandException.class)
+	public void test_Constructor3Param_Exception_Als_ongeldigeMaand() throws DagException, MaandException {
 		Datum onGeldigeDatum = new Datum(1,40,2010);
 	}
 	
 	@Test
-	public void test_ConstructorStringParam_Aanvaard_GeldigeStringMet2CijfersVoorDag() {
+	public void test_ConstructorStringParam_Aanvaard_GeldigeStringMet2CijfersVoorDag() throws DatumStringException, DagException, MaandException {
 		String geldigeStringMet2CijfersVoorDag = "02/10/2007";
 		Datum geldigeDatum = new Datum(geldigeStringMet2CijfersVoorDag);
-		assertEquals("2/10/2007",Datum.getDatumInEuropeesFormaat());
+		assertEquals("2/10/2007",geldigeDatum.toStringInEuropees());
 	}	
 	
 	@Test
-	public void test_ConstructorStringParam_Aanvaard_GeldigeStringMet1CijferVoorDag() {
+	public void test_ConstructorStringParam_Aanvaard_GeldigeStringMet1CijferVoorDag() throws DatumStringException, DagException, MaandException {
 		String geldigeStringMet1CijferVoorDag = "2/10/2007";
 		Datum geldigeDatum = new Datum(geldigeStringMet1CijferVoorDag);
-		assertEquals("2/10/2007",Datum.getDatumInEuropeesFormaat());
+		assertEquals("2/10/2007",geldigeDatum.toStringInEuropees());
 	}
 	
 	@Test
-	public void test_ConstructorStringParam_Aanvaard_GeldigeStringMetKoppeltekens() {
+	public void test_ConstructorStringParam_Aanvaard_GeldigeStringMetKoppeltekens() throws DatumStringException, DagException, MaandException {
 		String geldigeStringMetKoppeltekens = "02-10-2007";
-		Datum geldigeDatum = new Datum(geldigeStringMet1CijferVoorDag);
-		assertEquals("2/10/2007",Datum.getDatumInEuropeesFormaat());
+		Datum geldigeDatum = new Datum(geldigeStringMetKoppeltekens);
+		assertEquals("2/10/2007",geldigeDatum.toStringInEuropees());
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
