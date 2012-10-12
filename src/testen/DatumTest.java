@@ -1,9 +1,11 @@
-import org.junit.Before;
-import org.junit.Test;
+package testen;
+
 import static org.junit.Assert.*;
 
-import testing.Date;
-import testing.Datum;
+import org.junit.Before;
+import org.junit.Test;
+import java.util.Date;
+import utils.Datum;
 
 public class DatumTest {
 
@@ -22,7 +24,7 @@ public class DatumTest {
 	@Test
 	public void test_ConstructorZonderParam_Aanvaard_GeenParameter() {
 		Datum geldigeDatum = null;
-		Datum geldigeDatum = new Datum();
+		geldigeDatum = new Datum();
 		assertNotNull(geldigeDatum);
 	}	
 	
