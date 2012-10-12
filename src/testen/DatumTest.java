@@ -1,3 +1,4 @@
+package testen;
 import static org.junit.Assert.*;
 
 import model.Tijd;
