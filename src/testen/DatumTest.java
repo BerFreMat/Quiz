@@ -39,7 +39,7 @@ public class DatumTest {
 		assertEquals("1/1/2012",geldigeDatum.toStringInEuropees());
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
+	@Test (expected = DatumException.class)
 	public void test_Constructor1Param_Exception_Als_DateObjectIsNull() throws DatumException, DagException, MaandException {
 		Datum nullDatumObject = null ;
 		Datum testDatum = new Datum(nullDatumObject);
@@ -98,38 +98,32 @@ public class DatumTest {
 		assertEquals("2/10/2007",geldigeDatum.toStringInEuropees());
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_ConstructorStringParam_Exception_Als_letters() {
+	@Test (expected = DatumStringException.class)
+	public void test_ConstructorStringParam_Exception_Als_letters() throws DatumStringException, DagException, MaandException {
 		String ongeldigeString = "AA/BB/CCCC";
 		Datum geldigeDatum = new Datum(ongeldigeString);
 	}
 
-	@Test (expected = IllegalArgumentException.class)
-	public void test_ConstructorStringParam_Exception_Als_VerkeerdeLayoutYYYYMMDD() {
+	@Test (expected = DatumStringException.class)
+	public void test_ConstructorStringParam_Exception_Als_VerkeerdeLayoutYYYYMMDD() throws DatumStringException, DagException, MaandException {
 		String ongeldigeString = "2012/10/05";
 		Datum geldigeDatum = new Datum(ongeldigeString);
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_ConstructorStringParam_Exception_Als_null() {
+	@Test (expected = DatumStringException.class)
+	public void test_ConstructorStringParam_Exception_Als_null() throws DatumStringException, DagException, MaandException {
 		String ongeldigeString = null;
 		Datum geldigeDatum = new Datum(ongeldigeString);
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_ConstructorStringParam_Exception_Als_null() {
-		String ongeldigeString = null;
-		Datum geldigeDatum = new Datum(ongeldigeString);
-	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_ConstructorStringParam_Exception_Als_ongeldigeDag() {
+	@Test (expected = DagException.class)
+	public void test_ConstructorStringParam_Exception_Als_ongeldigeDag() throws DatumStringException, DagException, MaandException {
 		String ongeldigeDagString = "40/10/2012";
 		Datum geldigeDatum = new Datum(ongeldigeDagString);
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
-	public void test_ConstructorStringParam_Exception_Als_ongeldigeMaand() {
+	@Test (expected = MaandException.class)
+	public void test_ConstructorStringParam_Exception_Als_ongeldigeMaand() throws DatumStringException, DagException, MaandException {
 		String ongeldigeMaandString = "4/20/2012";
 		Datum geldigeDatum = new Datum(ongeldigeMaandString);
 	}
