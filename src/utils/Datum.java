@@ -66,22 +66,33 @@ import java.util.Date;
 		
 		public Datum(String datum) throws DatumStringException, DagException, MaandException 
 		{ // Format: DD/MM/JJJJ
-			
-			if(datum.length() == 9 || datum.length() == 10) 
+			if(datum == null)
+			{
+				throw new DatumStringException();
+			}
+			if(datum.length() == 9 || datum.length() == 10 ) 
+			{
+					
+				if(datum.length() == 9) 
 				{
-					if(datum.length() == 9) 
-						{datum = "0" + datum;} 
-					if(datum.substring(2,3).equals("/") && datum.substring(5,6).equals("/")) 
-						
-						{// Format check: (DD "/" MM "/" YYYY)
+					datum = "0" + datum;
+				} 
+				try
+				{
+					if(datum.substring(2,3).equals(datum.substring(5,6))) 
+					{// Format check: (DD "*" MM "*" YYYY)
 						int dag = Integer.valueOf(datum.substring(0, 2));
 						int maand = Integer.valueOf(datum.substring(3, 5));
 						int jaar = Integer.valueOf(datum.substring(6, 10));
 						this.set(dag, maand, jaar);
-						} 
-					else {throw new DatumStringException();}
-				} 
-			else {throw new DatumStringException(); }
+					} 
+				}
+				catch(NumberFormatException nfe)  
+				{  
+					throw new DatumStringException(); 
+				}	
+			}
+			else {throw new DatumStringException();}
 		}
 		
 		private boolean set(int dag, int maand, int jaar) throws DagException, MaandException {
