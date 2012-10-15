@@ -1,14 +1,15 @@
-/**@author Matias**/
-
 package utils;
 import java.util.Date;
-
 
 
 	public class Datum {
 			private int dag, maand, jaar;
 		
 		/**
+		 * Deze class representeert een datum object
+		 * 
+		 * @author Matias
+		 * 
 		 * Een constructor zonder parameters (object datum gelijk aan de systeemdatum)
 		 * @param /
 		 * @throws DagException
@@ -168,13 +169,23 @@ import java.util.Date;
 			return output;
 		}
 		
+		/**
+		 * Is deze datum gelijk aan een ander datum object
+		 * 
+		 * @param datum
+		 * @return
+		 */
 		public boolean equals(Datum datum) throws DatumException {
-			if ((this == null) || (datum == null) || (!(datum instanceof Datum)))
-				throw new DatumException();
-			else {
-				return this.getDag() == datum.getDag() && this.getMaand() == datum.getMaand() && this.getJaar() == datum.getJaar();
+			if (this.getDag() != datum.getDag()) {
+				return false;
+			} else if (this.getMaand() != datum.getMaand()) {
+				return false;
+			} else if (this.getJaar() != datum.getJaar()) {
+				return false;
 			}
+			return true;
 		}
+
 		
 		public int compareTo(Datum datum) throws DatumException {
 			if ((this == null) || (datum == null) || (!(datum instanceof Datum)))
@@ -217,3 +228,4 @@ import java.util.Date;
 			}
 		}
 	}
+	
