@@ -4,6 +4,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 
 /**
  * @author java
@@ -83,17 +84,17 @@ public class Quiz {
 	public void setUniekeDeelname(boolean isUniekeDeelname) {
 		this.isUniekeDeelname = isUniekeDeelname;
 	}
+	
 	/**
-	 * @return the quizStatus
+	 * get all the enum values of quizSatus
+	 * 
+	 * @param args
 	 */
-	public String getQuizStatus() {
-		return quizStatus;
-	}
-	/**
-	 * @param quizStatus the quizStatus to set
-	 */
-	public void setQuizStatus(String quizStatus) {
-		this.quizStatus = quizStatus;
+	public static void main (String args[])
+	{
+		//print all the quizstatus
+		for (QuizStatus quizStatus : QuizStatus.values())
+			System.out.printf("%-5s%-45s%s\n", quizStatus, quizStatus.getStatus());
 	}
 	
 }
