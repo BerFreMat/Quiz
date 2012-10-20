@@ -1,4 +1,4 @@
-package testen;
+package utils;
 
 import static org.junit.Assert.*;
 
@@ -6,11 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.Date;
 
-import utils.DagException;
-import utils.Datum;
-import utils.DatumException;
-import utils.DatumStringException;
-import utils.MaandException;
 
 public class DatumTest {
 
