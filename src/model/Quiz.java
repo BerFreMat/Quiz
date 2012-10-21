@@ -86,14 +86,7 @@ public class Quiz {
 	/**
 	 * @return the quizStatus
 	 */
-	public String getQuizStatus() {
+	public QuizStatus getQuizStatus() {
 		return quizStatus;
 	}
-	/**
-	 * @param quizStatus the quizStatus to set
-	 */
-	public void setQuizStatus(String quizStatus) {
-		this.quizStatus = quizStatus;
-	}
-	
 }

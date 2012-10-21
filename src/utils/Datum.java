@@ -187,6 +187,11 @@ import java.util.Date;
 		 * @return
 		 */
 		public boolean equals(Datum datum) throws DatumException {
+			if ((this == null) || (datum == null) || (!(datum instanceof Datum)))
+			{	
+				throw new DatumException();
+			}
+			
 			if (this.getDag() != datum.getDag()) {
 				return false;
 			} else if (this.getMaand() != datum.getMaand()) {
