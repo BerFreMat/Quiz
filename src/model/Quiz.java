@@ -5,6 +5,8 @@ package model;
 
 import java.util.ArrayList;
 
+import DatumGregorian.Datum;
+
 /**
  * @author java
  *
@@ -12,17 +14,59 @@ import java.util.ArrayList;
 public class Quiz {
 
 	public String  onderwerp;
-	public String[]  leerjaren;
+	public ArrayList<Leerjaar> leerjaren;
 	public boolean isTest;
 	public boolean isUniekeDeelname;
 	public QuizStatus quizStatus;
 	private ArrayList<QuizOpdracht> quizOpdrachten;
+	private ArrayList<QuizDeelname> quizDeelnamen;
+	private Leraar auteur;
+	private Datum datumRegistratie;
+	
+	/**
+	 * *default constructor for Quiz
+	 * QuizStatus = IN_CONSTRUCTIE
+	 * datumRegistratie = new Datum
+	 */
+	
+	public Quiz()
+	{
+		onderwerp = null;
+		leerjaren = null;
+		isTest = false;
+		isUniekeDeelname = false;
+		quizStatus = QuizStatus.IN_CONSTRUCTIE;
+		quizOpdrachten = null;
+		quizDeelnamen = null;
+		auteur = null;
+		datumRegistratie = new Datum();
+		
+		
+	}
+	
+	/**Constructor with imput parameters 
+	 *@params onderwerp, isTest, isUniekeDeelname, auteur
+	 */
+	
+	public Quiz(String onderwerp, boolean isTest, boolean isUniekeDeelname,
+			Leraar auteur) {
+		super();
+		quizStatus = QuizStatus.IN_CONSTRUCTIE;
+		datumRegistratie = new Datum();
+		this.onderwerp = onderwerp;
+		this.isTest = isTest;
+		this.isUniekeDeelname = isUniekeDeelname;
+		this.auteur = auteur;
+	}
+
 	/**
 	 * @return the quizOpdrachten
 	 */
 	private ArrayList<QuizOpdracht> getQuizOpdrachten() {
 		return quizOpdrachten;
 	}
+	
+
 	/**
 	 * @param quizOpdrachten the quizOpdrachten to set
 	 */
