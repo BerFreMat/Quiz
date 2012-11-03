@@ -18,9 +18,11 @@ public class Quiz {
 	public boolean isTest;
 	public boolean isUniekeDeelname;
 	public QuizStatus quizStatus;
-	private ArrayList<QuizOpdracht> quizOpdrachten;
-	private ArrayList<QuizDeelname> quizDeelnamen;
 	private Leraar auteur;
+	/**
+	 * @return the quizDeelnamen
+	 */
+
 	private Datum datumRegistratie;
 	
 	/**
@@ -36,12 +38,8 @@ public class Quiz {
 		isTest = false;
 		isUniekeDeelname = false;
 		quizStatus = QuizStatus.IN_CONSTRUCTIE;
-		quizOpdrachten = null;
-		quizDeelnamen = null;
 		auteur = null;
-		datumRegistratie = new Datum();
-		
-		
+		datumRegistratie = new Datum();		
 	}
 	
 	/**Constructor with imput parameters 
@@ -57,21 +55,6 @@ public class Quiz {
 		this.isTest = isTest;
 		this.isUniekeDeelname = isUniekeDeelname;
 		this.auteur = auteur;
-	}
-
-	/**
-	 * @return the quizOpdrachten
-	 */
-	private ArrayList<QuizOpdracht> getQuizOpdrachten() {
-		return quizOpdrachten;
-	}
-	
-
-	/**
-	 * @param quizOpdrachten the quizOpdrachten to set
-	 */
-	private void setQuizOpdrachten(ArrayList<QuizOpdracht> quizOpdrachten) {
-		this.quizOpdrachten = quizOpdrachten;
 	}
 	/**
 	 * @param quizStatus the quizStatus to set
@@ -90,18 +73,6 @@ public class Quiz {
 	 */
 	public void setOnderwerp(String onderwerp) {
 		this.onderwerp = onderwerp;
-	}
-	/**
-	 * @return the leerjaren
-	 */
-	public String[] getLeerjaren() {
-		return leerjaren;
-	}
-	/**
-	 * @param leerjaren the leerjaren to set
-	 */
-	public void setLeerjaren(String[] leerjaren) {
-		this.leerjaren = leerjaren;
 	}
 	/**
 	 * @return the isTest
@@ -132,5 +103,123 @@ public class Quiz {
 	 */
 	public QuizStatus getQuizStatus() {
 		return quizStatus;
+	}
+	/**
+	 * @return the auteur
+	 */
+	public Leraar getAuteur() {
+		return auteur;
+	}
+
+	/**
+	 * @param auteur the auteur to set
+	 */
+	public void setAuteur(Leraar auteur) {
+		this.auteur = auteur;
+	}
+
+	/**
+	 * @return the datumRegistratie
+	 */
+	public Datum getDatumRegistratie() {
+		return datumRegistratie;
+	}
+
+	/**
+	 * @param datumRegistratie the datumRegistratie to set
+	 */
+	public void setDatumRegistratie(Datum datumRegistratie) {
+		this.datumRegistratie = datumRegistratie;
+	}
+
+	/**
+	 * @param leerjaren the leerjaren to set
+	 */
+	public void setLeerjaren(ArrayList<Leerjaar> leerjaren) {
+		this.leerjaren = leerjaren;
+	}
+	public boolean isWijzigbaar()
+	{
+		if (this.quizStatus == QuizStatus.IN_CONSTRUCTIE)
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+	}
+	public boolean isVerwijderbaar()
+	{
+		if (this.quizStatus == QuizStatus.IN_CONSTRUCTIE || this.quizStatus == QuizStatus.AFGEWERKT)
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+	}
+	
+	public boolean isOpengesteld()
+	{
+		if (this.quizStatus == QuizStatus.OPENGESTELD)
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((onderwerp == null) ? 0 : onderwerp.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Quiz other = (Quiz) obj;
+		if (onderwerp == null) {
+			if (other.onderwerp != null)
+				return false;
+		} else if (!onderwerp.equals(other.onderwerp))
+			return false;
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Quiz [onderwerp=" + onderwerp + ", leerjaren=" + leerjaren
+				+ ", isTest=" + isTest + ", isUniekeDeelname="
+				+ isUniekeDeelname + ", quizStatus=" + quizStatus + ", auteur="
+				+ auteur + ", datumRegistratie=" + datumRegistratie + "]";
+	}
+	public ArrayList<QuizOpdracht> getQuizOpdrachten(){
+		ArrayList<QuizOpdracht> quizOpdrachten = new ArrayList<QuizOpdracht>();
+		
+		//op basis van opgeslagen quizOpdrachten een lijst opmaken.
+		
+		
 	}
 }
