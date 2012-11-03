@@ -204,7 +204,6 @@ public class Quiz {
 			return false;
 		return true;
 	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -220,6 +219,6 @@ public class Quiz {
 		
 		//op basis van opgeslagen quizOpdrachten een lijst opmaken.
 		
-		
+		return quizOpdrachten;
 	}
 }
