@@ -1,4 +1,4 @@
-package utils;
+package exceptions;
 
 public class DagTeKleinException extends DagException {
 	public DagTeKleinException() {

@@ -1,4 +1,4 @@
-package utils;
+package exceptions;
 
 public class DagTeGrootException extends DagException {
 	public DagTeGrootException() {

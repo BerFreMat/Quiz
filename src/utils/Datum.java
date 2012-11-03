@@ -1,6 +1,16 @@
 package utils;
 import java.util.Date;
 
+import exceptions.DagException;
+import exceptions.DagTeGrootDoorSchrikkeljaarException;
+import exceptions.DagTeGrootException;
+import exceptions.DagTeKleinException;
+import exceptions.DatumException;
+import exceptions.DatumStringException;
+import exceptions.MaandException;
+import exceptions.MaandTeGrootException;
+import exceptions.MaandTeKleinException;
+
 
 	public class Datum {
 			private int dag, maand, jaar;

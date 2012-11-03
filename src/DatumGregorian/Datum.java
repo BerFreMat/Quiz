@@ -1,15 +1,16 @@
 package DatumGregorian;
 import java.util.*;
 
-import utils.DagException;
-import utils.DagTeGrootDoorSchrikkeljaarException;
-import utils.DagTeGrootException;
-import utils.DagTeKleinException;
-import utils.DatumException;
-import utils.DatumStringException;
-import utils.MaandException;
-import utils.MaandTeGrootException;
-import utils.MaandTeKleinException;
+import exceptions.DagException;
+import exceptions.DagTeGrootDoorSchrikkeljaarException;
+import exceptions.DagTeGrootException;
+import exceptions.DagTeKleinException;
+import exceptions.DatumException;
+import exceptions.DatumStringException;
+import exceptions.MaandException;
+import exceptions.MaandTeGrootException;
+import exceptions.MaandTeKleinException;
+
 import utils.Maanden;
 
 /**

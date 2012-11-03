@@ -5,12 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import utils.DagException;
-import utils.DagTeGrootDoorSchrikkeljaarException;
+import exceptions.DagException;
+import exceptions.DagTeGrootDoorSchrikkeljaarException;
+import exceptions.DatumException;
+import exceptions.DatumStringException;
+import exceptions.MaandException;
+
 import utils.Datum;
-import utils.DatumException;
-import utils.DatumStringException;
-import utils.MaandException;
 
 public class DatumTest {
 	

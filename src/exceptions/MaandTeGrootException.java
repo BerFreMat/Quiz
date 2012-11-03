@@ -1,4 +1,4 @@
-package utils;
+package exceptions;
 
 public class MaandTeGrootException extends MaandException {
 	public MaandTeGrootException() {

@@ -5,6 +5,9 @@ package model;
 
 import java.util.ArrayList;
 
+import exceptions.OpdrachtNietGevondenException;
+import exceptions.ReedsBestaandeOpdrachtException;
+
 /**
  * @author java
  *

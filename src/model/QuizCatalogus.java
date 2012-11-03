@@ -5,6 +5,11 @@ package model;
 
 import java.util.ArrayList;
 
+import exceptions.QuizNietGevondenException;
+import exceptions.QuizNietVerwijderbaarException;
+import exceptions.QuizNietWijzigbaarException;
+import exceptions.ReedsBestaandeQuizException;
+
 import DatumGregorian.Datum;
 
 /**
