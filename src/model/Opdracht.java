@@ -4,6 +4,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import DatumGregorian.Datum;
 
@@ -11,9 +12,7 @@ import DatumGregorian.Datum;
  * @author java
  *
  */
-
-
-public abstract class Opdracht {
+public class Opdracht {
 
 	private String vraag;
 	private String juisteAntwoord;	
@@ -23,6 +22,8 @@ public abstract class Opdracht {
 	private Datum datumRegistratie;
 	private Leraar auteur;
 	private OpdrachtCategorie categorie;
+	private List <QuizOpdracht> quizOpdrachten;
+	
 	
 	public Opdracht() {
 		super();
@@ -38,6 +39,15 @@ public abstract class Opdracht {
 		maxAantalPogingen = 1;
 		datumRegistratie = new Datum();
 		maxAntwoordTijd = 0;
+		quizOpdrachten = new ArrayList <QuizOpdracht>();
+	}
+	
+	protected void voegQuizOpdrachtToe(QuizOpdracht quizOpdracht){
+		quizOpdrachten.add(quizOpdracht);
+	}
+	
+	protected void verwijderQuizOpdracht(QuizOpdracht quizOpdracht){
+		quizOpdrachten.remove(quizOpdracht);
 	}
 	
 	public String getOpgave() {
