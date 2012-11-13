@@ -12,7 +12,6 @@ import DatumGregorian.Datum;
  * @author java
  *
  */
-
 public abstract class Opdracht {
 
 	private String vraag;
