@@ -24,7 +24,7 @@ public abstract class FileContainer {
 	
 	public abstract void toevoegenLijn(String lijn) throws Exception;	
 	
-	public void schrijfBestand() throws Exception {
+	public void schrijfNaarBestand() throws Exception {
 		Formatter schrijver = null;
 
 		try {

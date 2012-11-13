@@ -34,6 +34,19 @@ public abstract class Opdracht {
 		
 		// TODO Auto-generated constructor stub
 	}	
+	
+	public Opdracht(String vraag, String juisteAntwoord) {
+		super();
+		this.vraag = vraag;
+		this.juisteAntwoord = juisteAntwoord;
+		maxAantalPogingen = 1;
+		datumRegistratie = new Datum();
+		maxAntwoordTijd = 0;
+		quizOpdrachten = new ArrayList<QuizOpdracht>();
+		
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Opdracht(String vraag, String juisteAntwoord, Leraar auteur,
 			OpdrachtCategorie categorie, int opdrachtId) {
 		super();
