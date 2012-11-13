@@ -242,11 +242,12 @@ public class Quiz {
 				+ isUniekeDeelname + ", quizStatus=" + quizStatus + ", auteur="
 				+ auteur + ", datumRegistratie=" + datumRegistratie + "]";
 	}
-	/**public ArrayList<QuizOpdracht> getQuizOpdrachten(){
+	
+	public ArrayList<QuizOpdracht> getQuizOpdrachten(){
 		ArrayList<QuizOpdracht> quizOpdrachten = new ArrayList<QuizOpdracht>();
 		
 		//op basis van opgeslagen quizOpdrachten een lijst opmaken.
 		
 		return quizOpdrachten;
-	}**/
+	}
 }

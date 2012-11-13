@@ -16,7 +16,8 @@ import DatumGregorian.Datum;
  * @author java
  *
  */
-public class QuizCatalogus {
+public class QuizCatalogus extends FileContainer implements PersisteerbaarAlsTekst {
+	
 	private ArrayList<Quiz> quizen;
 
 	/**
@@ -96,6 +97,40 @@ public class QuizCatalogus {
 			}
 		}		
 		return opengesteldeQuizen;
+	}
+
+	@Override
+	public void maakObjectVanLijn(String[] velden) throws ReedsBestaandeQuizException  {
+		String onderwerp = velden[0];
+		Quiz quiz = new Quiz(onderwerp);
+		this.voegQuizToe(quiz);
+	}
+	
+	@Override
+	public String getFile() {
+		// TODO Auto-generated method stub
+		return "bestanden\\quiz.txt";
+	}
+
+	@Override
+	public void toevoegenLijn(String lijn) throws ReedsBestaandeQuizException {
+		String [] velden = lijn.split(",");
+		maakObjectVanLijn(velden);
+	}
+
+	@Override
+	public String[] teSchrijvenLijnen() {
+		String[] teSchrijvenLijnen = new String[quizen.size()];
+		int i = 0;
+		for(Quiz quiz: quizen)
+		{
+			teSchrijvenLijnen[i] = String.format("%s$%s$%s", quiz.getAuteur(),
+					quiz.getDatumRegistratie(),
+					quiz.isTest(),
+					quiz.getOnderwerp());
+			i++;
+		}
+		return teSchrijvenLijnen;
 	}
 	
 }
