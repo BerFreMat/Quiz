@@ -4,6 +4,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import DatumGregorian.Datum;
 
@@ -19,6 +20,12 @@ public class Quiz {
 	public boolean isUniekeDeelname;
 	public QuizStatus quizStatus;
 	private Leraar auteur;
+	private List <QuizOpdracht> quizOpdrachten;
+	
+	public Quiz (String onderwerp){
+		this.onderwerp = onderwerp;
+		quizOpdrachten = new ArrayList <QuizOpdracht>();
+	}
 	/**
 	 * @return the quizDeelnamen
 	 */
@@ -39,7 +46,8 @@ public class Quiz {
 		isUniekeDeelname = false;
 		quizStatus = QuizStatus.IN_CONSTRUCTIE;
 		auteur = null;
-		datumRegistratie = new Datum();		
+		datumRegistratie = new Datum();
+		quizOpdrachten = new ArrayList <QuizOpdracht>();
 	}
 	
 	/**Constructor with imput parameters 
@@ -55,7 +63,27 @@ public class Quiz {
 		this.isTest = isTest;
 		this.isUniekeDeelname = isUniekeDeelname;
 		this.auteur = auteur;
+		quizOpdrachten = new ArrayList <QuizOpdracht>();
 	}
+	protected void voegQuizOpdrachtToe(QuizOpdracht quizOpdracht){
+		quizOpdrachten.add(quizOpdracht);
+	}
+	protected void verwijderdQuizOpdracht(QuizOpdracht quizOpdracht){
+		quizOpdrachten.remove(quizOpdracht);
+		
+	}
+	public ArrayList <Opdracht> getOpdrachten(){
+		ArrayList <Opdracht> opdrachten = new ArrayList <Opdracht>();
+		for (QuizOpdracht quizOpdracht :quizOpdrachten){
+			opdrachten.add(quizOpdracht.getOpdracht());
+		}
+		return opdrachten;
+	}
+	
+	public QuizOpdracht getOpdracht(int volgnr){
+		return quizOpdrachten.get(volgnr-1);
+	}
+
 	/**
 	 * @param quizStatus the quizStatus to set
 	 */
@@ -214,11 +242,11 @@ public class Quiz {
 				+ isUniekeDeelname + ", quizStatus=" + quizStatus + ", auteur="
 				+ auteur + ", datumRegistratie=" + datumRegistratie + "]";
 	}
-	public ArrayList<QuizOpdracht> getQuizOpdrachten(){
+	/**public ArrayList<QuizOpdracht> getQuizOpdrachten(){
 		ArrayList<QuizOpdracht> quizOpdrachten = new ArrayList<QuizOpdracht>();
 		
 		//op basis van opgeslagen quizOpdrachten een lijst opmaken.
 		
 		return quizOpdrachten;
-	}
+	}**/
 }
