@@ -12,19 +12,14 @@ public class Reproductie  extends Opdracht
 		super();
 
 	}
-
-	public Reproductie(List<String> trefwoorden, int minAantalJuisteTrefwoorden) {
-		super();
-		this.trefwoorden = trefwoorden;
-		this.minAantalJuisteTrefwoorden = minAantalJuisteTrefwoorden;
-	}
 	
 	public Reproductie(String vraag, String juisteAntwoord, Leraar auteur,
-			OpdrachtCategorie categorie)
+			OpdrachtCategorie categorie,List<String> trefwoorden, int minAantalJuisteTrefwoorden, int opdrachtId )
 	{
-		super(vraag,juisteAntwoord,auteur,categorie);		
+		super(vraag,"",auteur,categorie,opdrachtId);		
 		trefwoorden = new ArrayList<String>();
-		minAantalJuisteTrefwoorden = 0;
+		this.minAantalJuisteTrefwoorden = minAantalJuisteTrefwoorden;
+		this.setOpdrachtSoort(OpdrachtSoort.REPRODUCTIE);
 	}
 
 	public List<String> getTrefwoorden() {
@@ -42,4 +37,25 @@ public class Reproductie  extends Opdracht
 	public void setMinAantalJuisteTrefwoorden(int minAantalJuisteTrefwoorden) {
 		this.minAantalJuisteTrefwoorden = minAantalJuisteTrefwoorden;
 	} 
+	
+	@Override
+	public boolean isJuisteAntwoord(String antwoord){
+		int aantalGegevenTrefwoorden =0;
+		for (int i = 0;i < this.getTrefwoorden().size();i++ )
+		{
+			if(antwoord.toLowerCase().contains(this.getTrefwoorden().get(i).toLowerCase()))
+			{
+				aantalGegevenTrefwoorden++;
+			}
+		}
+		
+		if( aantalGegevenTrefwoorden >= this.getMinAantalJuisteTrefwoorden())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

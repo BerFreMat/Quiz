@@ -8,6 +8,6 @@ package model;
  *
  */
 public interface Valideerbaar {
-	public boolean isValideerbaar(String antwoord);
+	public boolean isValide(String antwoord);
 	public String getValideerTekst();
 }

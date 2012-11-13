@@ -12,7 +12,6 @@ import DatumGregorian.Datum;
  *
  */
 
-
 public abstract class Opdracht {
 
 	private String vraag;
@@ -23,13 +22,19 @@ public abstract class Opdracht {
 	private Datum datumRegistratie;
 	private Leraar auteur;
 	private OpdrachtCategorie categorie;
+	private OpdrachtSoort opdrachtSoort; 
+	private int opdrachtId;
 	
 	public Opdracht() {
 		super();
+		maxAantalPogingen = 1;
+		datumRegistratie = new Datum();
+		maxAntwoordTijd = 0;
+		
 		// TODO Auto-generated constructor stub
 	}	
 	public Opdracht(String vraag, String juisteAntwoord, Leraar auteur,
-			OpdrachtCategorie categorie) {
+			OpdrachtCategorie categorie, int opdrachtId) {
 		super();
 		this.vraag = vraag;
 		this.juisteAntwoord = juisteAntwoord;
@@ -38,6 +43,7 @@ public abstract class Opdracht {
 		maxAantalPogingen = 1;
 		datumRegistratie = new Datum();
 		maxAntwoordTijd = 0;
+		this.opdrachtId = opdrachtId;
 	}
 	
 	public String getOpgave() {
@@ -119,8 +125,9 @@ public abstract class Opdracht {
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
-	 * equals methode is volledig gebaseerd op de vraag.
+	 * equals methode is volledig gebaseerd op de vraag en opdrachtId.
 	 * Als de vraag gelijk is worden twee opdrachten als gelijk beschouwd.
+	 * Als de opdrachtId gelijk is worden twee opdrachten als gelijk beschouwd.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -153,5 +160,17 @@ public abstract class Opdracht {
 	public String toonOplossing(){
 		return "vraag: " + vraag + ", juisteAntwoord="
 				+ juisteAntwoord + ", antwoordhints" + antwoordHints.toString();
+	}
+	public OpdrachtSoort getOpdrachtSoort() {
+		return opdrachtSoort;
+	}
+	public void setOpdrachtSoort(OpdrachtSoort opdrachtSoort) {
+		this.opdrachtSoort = opdrachtSoort;
+	}
+	public int getOpdrachtId() {
+		return opdrachtId;
+	}
+	public void setOpdrachtId(int opdrachtId) {
+		this.opdrachtId = opdrachtId;
 	}
 }
