@@ -4,7 +4,11 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import exceptions.DagException;
+import exceptions.DatumStringException;
+import exceptions.MaandException;
 import exceptions.QuizNietGevondenException;
 import exceptions.QuizNietVerwijderbaarException;
 import exceptions.QuizNietWijzigbaarException;
@@ -18,12 +22,17 @@ import DatumGregorian.Datum;
  */
 public class QuizCatalogus extends FileContainer implements PersisteerbaarAlsTekst {
 	
-	private ArrayList<Quiz> quizen;
+	private List<Quiz> quizen;
+
+	public QuizCatalogus() {
+		super();
+		this.quizen = new ArrayList<Quiz>();
+	}
 
 	/**
 	 * @return the quizen
 	 */
-	public ArrayList<Quiz> getQuizen() {
+	public List<Quiz> getQuizen() {
 		return quizen;
 	}
 
@@ -99,38 +108,145 @@ public class QuizCatalogus extends FileContainer implements PersisteerbaarAlsTek
 		return opengesteldeQuizen;
 	}
 
-	@Override
-	public void maakObjectVanLijn(String[] velden) throws ReedsBestaandeQuizException  {
-		String onderwerp = velden[0];
-		Quiz quiz = new Quiz(onderwerp);
-		this.voegQuizToe(quiz);
-	}
+
 	
 	@Override
 	public String getFile() {
 		// TODO Auto-generated method stub
-		return "bestanden\\quiz.txt";
+		return "quiz.txt";
 	}
 
 	@Override
-	public void toevoegenLijn(String lijn) throws ReedsBestaandeQuizException {
-		String [] velden = lijn.split(",");
+	public void deformatteerLijn(String lijn) throws ReedsBestaandeQuizException, DatumStringException, DagException, MaandException {
+		String [] velden = lijn.split("$");
 		maakObjectVanLijn(velden);
 	}
 
+
 	@Override
-	public String[] teSchrijvenLijnen() {
-		String[] teSchrijvenLijnen = new String[quizen.size()];
-		int i = 0;
-		for(Quiz quiz: quizen)
+	public List teSchrijvenLijst() {
+		// TODO Auto-generated method stub
+		List teSchrijvenLijst ;
+		teSchrijvenLijst = quizen;
+		return quizen;
+	}
+
+	/**
+	 * Maakt van het Quiz object een string die kan worden opgeslagen in een textbestand.
+	 * auteur$datumRegistratie$isTest$isUniekeDeelname$leerjaren$onderwerp$quizOpdrachte$quizStatus
+	 */
+	@Override
+	public String formatteerObject(Object obj) 
+	{
+		Quiz quiz = null;
+		try
 		{
-			teSchrijvenLijnen[i] = String.format("%s$%s$%s", quiz.getAuteur(),
-					quiz.getDatumRegistratie(),
-					quiz.isTest(),
-					quiz.getOnderwerp());
-			i++;
+			quiz = (Quiz)obj;
 		}
-		return teSchrijvenLijnen;
+		catch (Exception ex)
+		{
+			System.out.println("obj geen quiz");
+		}
+		
+		if (quiz != null)
+		{
+			String teSchrijvenLijn = 
+				String.format("%s$%s$%s$%s$%s$%s$%s$%s", 
+				quiz.getQuizId(),
+				quiz.getOnderwerp(),
+				formatteerLeerjaren(quiz.getLeerjaren()),
+				quiz.isTest(),
+				quiz.isUniekeDeelname(),
+				quiz.getQuizStatus(),
+				quiz.getAuteur(),
+				formatteerQuizOpdrachten(quiz.getQuizOpdrachten()),
+				quiz.getDatumRegistratie().toStringInEuropees());
+			
+			return teSchrijvenLijn;
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
+	@Override
+	public void maakObjectVanLijn(String[] velden) throws ReedsBestaandeQuizException, DatumStringException, DagException, MaandException  {
+		int quizId = Integer.parseInt(velden[0]);
+		String onderwerp = velden[1];
+		ArrayList<Leerjaar> leerjaren = deformatteerLeerjaren(velden[2]);
+		Boolean isTest = Boolean.valueOf(velden[3]);
+		Boolean isUniekeDeelname = Boolean.valueOf(velden[4]);
+		QuizStatus quizStatus = QuizStatus.valueOf(velden[5]);
+		Leraar auteur = Leraar.valueOf(velden[6]);
+		ArrayList<QuizOpdracht> quizOpdrachten = deformatteerQuizOpdrachten(velden[7]);
+		Datum datumRegistratie = new Datum(velden[8]);
+		
+		Quiz quiz = new Quiz(quizId,onderwerp,leerjaren,isTest,isUniekeDeelname,quizStatus,auteur,quizOpdrachten,datumRegistratie);
+		this.voegQuizToe(quiz);
+	}
+	
+	private ArrayList<QuizOpdracht> deformatteerQuizOpdrachten(String quizOpdrachten) {
+		
+		String[] quizOpdrachtenGesplit = quizOpdrachten.split(";");
+		ArrayList<QuizOpdracht> quizOpdrachtenLijst = new ArrayList<QuizOpdracht>();
+		
+		for(int i = 0 ; i < quizOpdrachtenGesplit.length - 1 ; i ++)
+		{
+			String[] qOVeldenGesplit= quizOpdrachtenGesplit[i].split(" ");
+			quizOpdrachtenLijst.add
+				(new QuizOpdracht
+						(Integer.parseInt(qOVeldenGesplit[0]),
+						Integer.parseInt(qOVeldenGesplit[1]),
+						Integer.parseInt(qOVeldenGesplit[2])));
+		}
+		return quizOpdrachtenLijst;	
+	}
+	
+	private Object formatteerQuizOpdrachten(
+			ArrayList<QuizOpdracht> quizOpdrachten) {
+		
+		String geformatteerdeQuizOprdrachten = null;
+		for (QuizOpdracht quizOpdracht : quizOpdrachten) {
+			
+			geformatteerdeQuizOprdrachten +=  String.format("%s %s %s;", 
+					quizOpdracht.getQuizId(),quizOpdracht.getOpdrachtId(),quizOpdracht.getMaxScore());
+		}
+		return geformatteerdeQuizOprdrachten;
+	}
+
+	public ArrayList<Leerjaar> deformatteerLeerjaren(String leerjaren)
+	{
+		String[] leerjarenGesplit = leerjaren.split(";");
+		ArrayList<Leerjaar> leerjarenLijst = new ArrayList<Leerjaar>();
+		
+		for(int i = 0 ; i < leerjarenGesplit.length - 1 ; i ++)
+		{
+			leerjarenLijst.add(Leerjaar.valueOf(leerjarenGesplit[i]));
+		}
+		return leerjarenLijst;
+	}
+		
+	public String formatteerLeerjaren(ArrayList<Leerjaar> leerjaren)
+	{	
+		String geformatteerdeLeerjaren = null;
+		for(Leerjaar leerjaar : leerjaren )
+		{
+			geformatteerdeLeerjaren += leerjaar.toString() + ";";
+		}
+		return geformatteerdeLeerjaren;
+	}
+
+	public void verwijderQuizOpdracht(QuizOpdracht quizOpdracht) {
+		for(Quiz quiz : quizen)
+		{
+			if(quiz.getQuizOpdrachten().contains(quizOpdracht))
+			{
+				quiz.verwijderdQuizOpdracht(quizOpdracht);
+			}
+		}
+		
+	}
+	
+
 }

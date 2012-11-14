@@ -59,8 +59,8 @@ public class OpdrachtAntwoord {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public String feedback(){
-		return quizOpdracht.getOpdracht().toonOplossing() + 
+	public String feedback(OpdrachtCatalogus opdrachtCatalogus){
+		return opdrachtCatalogus.getOpdracht(quizOpdracht).toonOplossing() + 
 				"laatste Antwoord : " + laatsteAntwoord +
 				"antwoordTijd : "+ antwoordTijd ;
 	}

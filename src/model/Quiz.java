@@ -14,11 +14,13 @@ import DatumGregorian.Datum;
  */
 public class Quiz {
 
-	public String  onderwerp;
-	public ArrayList<Leerjaar> leerjaren;
-	public boolean isTest;
-	public boolean isUniekeDeelname;
-	public QuizStatus quizStatus;
+
+	private int quizId;
+	private String  onderwerp;
+	private ArrayList<Leerjaar> leerjaren;
+	private boolean isTest;
+	private boolean isUniekeDeelname;
+	private QuizStatus quizStatus;
 	private Leraar auteur;
 	private List <QuizOpdracht> quizOpdrachten;
 	
@@ -65,6 +67,21 @@ public class Quiz {
 		this.auteur = auteur;
 		quizOpdrachten = new ArrayList <QuizOpdracht>();
 	}
+	public Quiz(int quizId, String onderwerp, ArrayList<Leerjaar> leerjaren,
+			boolean isTest, boolean isUniekeDeelname, QuizStatus quizStatus,
+			Leraar auteur, List<QuizOpdracht> quizOpdrachten,
+			Datum datumRegistratie) {
+		super();
+		this.quizId = quizId;
+		this.onderwerp = onderwerp;
+		this.leerjaren = leerjaren;
+		this.isTest = isTest;
+		this.isUniekeDeelname = isUniekeDeelname;
+		this.quizStatus = quizStatus;
+		this.auteur = auteur;
+		this.quizOpdrachten = quizOpdrachten;
+		this.datumRegistratie = datumRegistratie;
+	}
 	protected void voegQuizOpdrachtToe(QuizOpdracht quizOpdracht){
 		quizOpdrachten.add(quizOpdracht);
 	}
@@ -72,18 +89,41 @@ public class Quiz {
 		quizOpdrachten.remove(quizOpdracht);
 		
 	}
-	public ArrayList <Opdracht> getOpdrachten(){
+	public ArrayList <Opdracht> getOpdrachten(OpdrachtCatalogus opdrachtCatalogus){
 		ArrayList <Opdracht> opdrachten = new ArrayList <Opdracht>();
 		for (QuizOpdracht quizOpdracht :quizOpdrachten){
-			opdrachten.add(quizOpdracht.getOpdracht());
+			opdrachten.add(quizOpdracht.getOpdracht(opdrachtCatalogus));
 		}
 		return opdrachten;
 	}
 	
+	public int[] getOpdrachten(){
+		int[] opdrachten = new int[quizOpdrachten.size()];
+		for (int i= 0; i< quizOpdrachten.size(); i++)
+		{
+			opdrachten[i] = quizOpdrachten.get(i).getOpdrachtId();
+		}
+		return opdrachten;
+	}
+	
+	public ArrayList<Leerjaar> getLeerjaren() {
+		return leerjaren;
+	}
+
+	public void setQuizOpdrachten(List<QuizOpdracht> quizOpdrachten) {
+		this.quizOpdrachten = quizOpdrachten;
+	}	
 	public QuizOpdracht getOpdracht(int volgnr){
 		return quizOpdrachten.get(volgnr-1);
 	}
+	
+	public int getQuizId() {
+		return quizId;
+	}
 
+	public void setQuizId(int quizId) {
+		this.quizId = quizId;
+	}
 	/**
 	 * @param quizStatus the quizStatus to set
 	 */
@@ -232,6 +272,8 @@ public class Quiz {
 			return false;
 		return true;
 	}
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

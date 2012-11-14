@@ -9,53 +9,98 @@ package model;
  */
 public class QuizOpdracht {
 
-	public Quiz quiz;
-	public Opdracht opdracht;
+	private int quizId;
+	private int opdrachtId;
 	private int maxScore;
 
-	private QuizOpdracht (Quiz quiz, Opdracht opdracht, int maxScore){
+/*	private QuizOpdracht (Quiz quiz, Opdracht opdracht, int maxScore){
 		this.quiz = quiz;
 		this.opdracht = opdracht;
-		this.maxScore = maxScore;		
+		this.setMaxScore(maxScore);		
 	}
-	
-	public static void koppelOpdrachtAanQuiz(
+*/	
+	public QuizOpdracht(int quizId, int opdrachtId, int maxScore) {
+		super();
+		this.quizId = quizId;
+		this.opdrachtId = opdrachtId;
+		this.maxScore = maxScore;
+	}
+
+/*	public static void koppelOpdrachtAanQuiz(
 			Quiz quiz, Opdracht opdracht, int maxScore){
 		QuizOpdracht quizOpdracht = 
                             new QuizOpdracht(quiz,opdracht,maxScore);
 		quiz.voegQuizOpdrachtToe(quizOpdracht);
 		opdracht.voegQuizOpdrachtToe(quizOpdracht);
 	}
+*/	
 	
-	public void ontKoppelOpdrachtVanQuiz(){
-		quiz.verwijderdQuizOpdracht(this);
-		opdracht.verwijderQuizOpdracht(this);
+	public static void koppelOpdrachtAanQuiz(
+			Quiz quiz, Opdracht opdracht, int maxScore){
+		QuizOpdracht quizOpdracht = 
+                            new QuizOpdracht(quiz.getQuizId(),opdracht.getOpdrachtId(),maxScore);
+		quiz.voegQuizOpdrachtToe(quizOpdracht);
+		opdracht.voegQuizOpdrachtToe(quizOpdracht);
+	}
+	
+
+
+	public void ontKoppelOpdrachtVanQuiz(QuizCatalogus quizcatalogus, OpdrachtCatalogus opdrachtCatalogus){
+		quizcatalogus.verwijderQuizOpdracht(this);
+		opdrachtCatalogus.verwijderQuizOpdracht(this);
 	}
 
-	/**
-	 * @return the quiz
-	 */
-	public Quiz getQuiz() {
-		return quiz;
+	public int getQuizId() {
+		return quizId;
 	}
-	/**
-	 * @param quiz the quiz to set
-	 */
-	public void setQuiz(Quiz quiz) {
-		this.quiz = quiz;
+
+	public void setQuizId(int quizId) {
+		this.quizId = quizId;
 	}
-	/**
-	 * @return the opdracht
-	 */
-	public Opdracht getOpdracht() {
-		return opdracht;
+
+	public int getOpdrachtId() {
+		return opdrachtId;
 	}
-	/**
-	 * @param opdracht the opdracht to set
-	 */
-	public void setOpdracht(Opdracht opdracht) {
-		this.opdracht = opdracht;
+
+	public void setOpdrachtId(int opdrachtId) {
+		this.opdrachtId = opdrachtId;
+	}
+
+	public int getMaxScore() {
+		return maxScore;
+	}
+
+	public void setMaxScore(int maxScore) {
+		this.maxScore = maxScore;
 	}
 	
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + opdrachtId;
+		result = prime * result + quizId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		QuizOpdracht other = (QuizOpdracht) obj;
+		if (opdrachtId != other.opdrachtId)
+			return false;
+		if (quizId != other.quizId)
+			return false;
+		return true;
+	}
+
+	public Opdracht getOpdracht(OpdrachtCatalogus opdrachtCatalogus) {
+		opdrachtCatalogus.getOpdracht(opdrachtId);
+		return null;
+	}	
 }

@@ -196,4 +196,24 @@ public abstract class Opdracht {
 	public void setOpdrachtId(int opdrachtId) {
 		this.opdrachtId = opdrachtId;
 	}
+
+	public String getJuisteAntwoord() {
+		return juisteAntwoord;
+	}
+
+	public void setJuisteAntwoord(String juisteAntwoord) {
+		this.juisteAntwoord = juisteAntwoord;
+	}
+
+	public List<QuizOpdracht> getQuizOpdrachten() {
+		return quizOpdrachten;
+	}
+
+	public void setQuizOpdrachten(List<QuizOpdracht> quizOpdrachten) {
+		this.quizOpdrachten = quizOpdrachten;
+	}
+
+	public void verwijderdQuizOpdracht(QuizOpdracht quizOpdracht) {
+		quizOpdrachten.remove(quizOpdracht);
+	}
 }

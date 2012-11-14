@@ -66,12 +66,12 @@ public class QuizDeelname {
 		this.actieveVraag = actieveVraag -1;
 	}
 	
-	public String feedback()
+	public String feedback(OpdrachtCatalogus opdrachtCatalogus)
 	{
 		String feedback = new String();
 		for (int i = 0;i< opdrachtAntwoorden.size();i++)
 		{
-			feedback += opdrachtAntwoorden.get(i).feedback() + " ";
+			feedback += opdrachtAntwoorden.get(i).feedback(opdrachtCatalogus) + " ";
 		}
 		return feedback;
 	}

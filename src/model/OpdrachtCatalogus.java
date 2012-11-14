@@ -63,5 +63,36 @@ public class OpdrachtCatalogus {
 		{
 			opdrachten.set(positieOpdracht, opdracht);
 		}	
+	}
+	public void verwijderQuizOpdracht(QuizOpdracht quizOpdracht) {
+		// TODO Auto-generated method stub
+		
 	}	  
+	public void verwijderdQuizOpdracht(QuizOpdracht quizOpdracht) {
+		for(Opdracht opdracht : opdrachten)
+		{
+			if(opdracht.getQuizOpdrachten().contains(quizOpdracht))
+			{
+				opdracht.verwijderdQuizOpdracht(quizOpdracht);
+			}
+		}
+		
+	}
+	public Opdracht getOpdracht(int opdrachtId) {
+		for(Opdracht opd : opdrachten)
+		{
+			if(opd.getOpdrachtId() == opdrachtId )
+			return opd;
+		}
+		return null;
+	}
+	
+	public Opdracht getOpdracht(QuizOpdracht quizOpdracht) {
+		for(Opdracht opd : opdrachten)
+		{
+			if(opd.getOpdrachtId() == quizOpdracht.getOpdrachtId() )
+			return opd;
+		}
+		return null;
+	}
 }
