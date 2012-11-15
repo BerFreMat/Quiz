@@ -21,6 +21,10 @@ public class OpdrachtCatalogus {
 	private ArrayList<Opdracht> getOpdrachten() {
 		return opdrachten;
 	}
+	public OpdrachtCatalogus() {
+		super();
+		opdrachten = new ArrayList<Opdracht>();
+	}
 	/**
 	 * @param opdrachten the opdrachten to set
 	 */
@@ -36,6 +40,7 @@ public class OpdrachtCatalogus {
 			throw new ReedsBestaandeOpdrachtException();}
 		else
 		{
+			opdracht.setOpdrachtId(opdrachten.size());
 			opdrachten.add(opdracht);
 		}
 	}

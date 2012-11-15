@@ -27,6 +27,7 @@ public class Quiz {
 	public Quiz (String onderwerp){
 		this.onderwerp = onderwerp;
 		quizOpdrachten = new ArrayList <QuizOpdracht>();
+		quizStatus = QuizStatus.IN_CONSTRUCTIE;
 	}
 	/**
 	 * @return the quizDeelnamen
@@ -241,21 +242,17 @@ public class Quiz {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((onderwerp == null) ? 0 : onderwerp.hashCode());
+		result = prime * result + quizId;
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -265,31 +262,24 @@ public class Quiz {
 		if (getClass() != obj.getClass())
 			return false;
 		Quiz other = (Quiz) obj;
-		if (onderwerp == null) {
-			if (other.onderwerp != null)
-				return false;
-		} else if (!onderwerp.equals(other.onderwerp))
+		if (quizId != other.quizId)
 			return false;
 		return true;
 	}
 
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	
+	public List<QuizOpdracht> getQuizOpdrachten(){		
+		return  quizOpdrachten;
+	}
+
 	@Override
 	public String toString() {
-		return "Quiz [onderwerp=" + onderwerp + ", leerjaren=" + leerjaren
-				+ ", isTest=" + isTest + ", isUniekeDeelname="
-				+ isUniekeDeelname + ", quizStatus=" + quizStatus + ", auteur="
-				+ auteur + ", datumRegistratie=" + datumRegistratie + "]";
-	}
-	
-	public ArrayList<QuizOpdracht> getQuizOpdrachten(){
-		ArrayList<QuizOpdracht> quizOpdrachten = new ArrayList<QuizOpdracht>();
-		
-		//op basis van opgeslagen quizOpdrachten een lijst opmaken.
-		
-		return quizOpdrachten;
+		return "Quiz [quizId=" + quizId + ", onderwerp=" + onderwerp
+				+ ", leerjaren=" + leerjaren + ", isTest=" + isTest
+				+ ", isUniekeDeelname=" + isUniekeDeelname + ", quizStatus="
+				+ quizStatus + ", auteur=" + auteur + ", quizOpdrachten="
+				+ quizOpdrachten + ", datumRegistratie=" + datumRegistratie
+				+ "]";
 	}
 }

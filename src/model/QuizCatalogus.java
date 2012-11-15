@@ -47,12 +47,15 @@ public class QuizCatalogus extends FileContainer implements PersisteerbaarAlsTek
 	{
 		quiz.setDatumRegistratie(new Datum());
 		int positieQuiz = quizen.indexOf(quiz);
+
+		System.out.println("positieQuiz: "+positieQuiz);
 		if(positieQuiz >= 0)
 		{
 			throw new ReedsBestaandeQuizException();
 		}
 		else
 		{
+			quiz.setQuizId(quizen.size()+1);
 			quizen.add(quiz);
 		}
 	}
@@ -77,6 +80,8 @@ public class QuizCatalogus extends FileContainer implements PersisteerbaarAlsTek
 	
 	public void wijzigQuiz(Quiz quiz) throws QuizNietWijzigbaarException, QuizNietGevondenException
 	{
+	//	System.out.println(quizen);
+	//	System.out.println(quiz);
 		int positieQuiz = quizen.indexOf(quiz);
 		
 		if(positieQuiz < 0){
@@ -94,6 +99,11 @@ public class QuizCatalogus extends FileContainer implements PersisteerbaarAlsTek
 		}
 	}	
 	
+	@Override
+	public String toString() {
+		return "QuizCatalogus [quizen=" + quizen + "]";
+	}
+
 	public ArrayList<Quiz> opengesteldeQuizen()
 	{
 		ArrayList<Quiz> opengesteldeQuizen = new ArrayList<Quiz>();
@@ -118,7 +128,8 @@ public class QuizCatalogus extends FileContainer implements PersisteerbaarAlsTek
 
 	@Override
 	public void deformatteerLijn(String lijn) throws ReedsBestaandeQuizException, DatumStringException, DagException, MaandException {
-		String [] velden = lijn.split("$");
+		String[] velden = lijn.split(":");
+		System.out.println("voor maak object van lijn" + velden[0]);
 		maakObjectVanLijn(velden);
 	}
 
@@ -151,7 +162,7 @@ public class QuizCatalogus extends FileContainer implements PersisteerbaarAlsTek
 		if (quiz != null)
 		{
 			String teSchrijvenLijn = 
-				String.format("%s$%s$%s$%s$%s$%s$%s$%s", 
+				String.format("%s:%s:%s:%s:%s:%s:%s:%s:%s", 
 				quiz.getQuizId(),
 				quiz.getOnderwerp(),
 				formatteerLeerjaren(quiz.getLeerjaren()),
@@ -172,46 +183,75 @@ public class QuizCatalogus extends FileContainer implements PersisteerbaarAlsTek
 	
 	@Override
 	public void maakObjectVanLijn(String[] velden) throws ReedsBestaandeQuizException, DatumStringException, DagException, MaandException  {
+
+		System.out.println("a " + velden[0]);
 		int quizId = Integer.parseInt(velden[0]);
+		System.out.println("b");
 		String onderwerp = velden[1];
+		System.out.println("c");
 		ArrayList<Leerjaar> leerjaren = deformatteerLeerjaren(velden[2]);
+		System.out.println("d");
 		Boolean isTest = Boolean.valueOf(velden[3]);
+		System.out.println("e");
 		Boolean isUniekeDeelname = Boolean.valueOf(velden[4]);
+		System.out.println("f");
 		QuizStatus quizStatus = QuizStatus.valueOf(velden[5]);
-		Leraar auteur = Leraar.valueOf(velden[6]);
+		System.out.println("g");
+		Leraar auteur = deformatteerAuteur(velden[6]);
+		System.out.println("h" + velden[7]);
 		ArrayList<QuizOpdracht> quizOpdrachten = deformatteerQuizOpdrachten(velden[7]);
+		System.out.println("i"+ velden[8]+"e");
 		Datum datumRegistratie = new Datum(velden[8]);
-		
+		System.out.println("j");
+
+		System.out.println("voor aanmaak nieuwe quiz");
 		Quiz quiz = new Quiz(quizId,onderwerp,leerjaren,isTest,isUniekeDeelname,quizStatus,auteur,quizOpdrachten,datumRegistratie);
 		this.voegQuizToe(quiz);
 	}
 	
-	private ArrayList<QuizOpdracht> deformatteerQuizOpdrachten(String quizOpdrachten) {
-		
-		String[] quizOpdrachtenGesplit = quizOpdrachten.split(";");
-		ArrayList<QuizOpdracht> quizOpdrachtenLijst = new ArrayList<QuizOpdracht>();
-		
-		for(int i = 0 ; i < quizOpdrachtenGesplit.length - 1 ; i ++)
+	private Leraar deformatteerAuteur(String auteur) {
+		// TODO Auto-generated method stub
+		if(!auteur.equals("null"))
 		{
-			String[] qOVeldenGesplit= quizOpdrachtenGesplit[i].split(" ");
-			quizOpdrachtenLijst.add
-				(new QuizOpdracht
-						(Integer.parseInt(qOVeldenGesplit[0]),
-						Integer.parseInt(qOVeldenGesplit[1]),
-						Integer.parseInt(qOVeldenGesplit[2])));
+			return Leraar.valueOf(auteur);
 		}
-		return quizOpdrachtenLijst;	
+		else
+		{
+			return null;
+		}
+	}
+
+	private ArrayList<QuizOpdracht> deformatteerQuizOpdrachten(String quizOpdrachten) {
+		if (!quizOpdrachten.equals("null"))
+		{
+			String[] quizOpdrachtenGesplit = quizOpdrachten.split(";");
+			ArrayList<QuizOpdracht> quizOpdrachtenLijst = new ArrayList<QuizOpdracht>();
+			
+			for(int i = 0 ; i < quizOpdrachtenGesplit.length - 1 ; i ++)
+			{
+				String[] qOVeldenGesplit= quizOpdrachtenGesplit[i].split(" ");
+				quizOpdrachtenLijst.add
+					(new QuizOpdracht
+							(Integer.parseInt(qOVeldenGesplit[0]),
+							Integer.parseInt(qOVeldenGesplit[1]),
+							Integer.parseInt(qOVeldenGesplit[2])));
+			}
+			return quizOpdrachtenLijst;
+		}
+		else
+			return null;
 	}
 	
 	private Object formatteerQuizOpdrachten(
-			ArrayList<QuizOpdracht> quizOpdrachten) {
+			List<QuizOpdracht> quizOpdrachten) {
 		
-		String geformatteerdeQuizOprdrachten = null;
+		String geformatteerdeQuizOprdrachten = new String();
 		for (QuizOpdracht quizOpdracht : quizOpdrachten) {
 			
 			geformatteerdeQuizOprdrachten +=  String.format("%s %s %s;", 
 					quizOpdracht.getQuizId(),quizOpdracht.getOpdrachtId(),quizOpdracht.getMaxScore());
 		}
+		System.out.println("geformatteerdeQuizOprdrachten" + geformatteerdeQuizOprdrachten);
 		return geformatteerdeQuizOprdrachten;
 	}
 
@@ -230,9 +270,12 @@ public class QuizCatalogus extends FileContainer implements PersisteerbaarAlsTek
 	public String formatteerLeerjaren(ArrayList<Leerjaar> leerjaren)
 	{	
 		String geformatteerdeLeerjaren = null;
-		for(Leerjaar leerjaar : leerjaren )
+		if(leerjaren!= null)
 		{
-			geformatteerdeLeerjaren += leerjaar.toString() + ";";
+			for(Leerjaar leerjaar : leerjaren )
+			{
+				geformatteerdeLeerjaren += leerjaar.toString() + ";";
+			}
 		}
 		return geformatteerdeLeerjaren;
 	}

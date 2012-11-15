@@ -32,18 +32,19 @@ public abstract class FileContainer {
 	 */
 	public abstract String formatteerObject(Object obj) ;
 	
-	public void lezen(){
+	public void lezen() throws Exception{
 		try{
 			File file = new File(getFile());
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String lijn = null;
 			while ((lijn = reader.readLine()) != null){
+				System.out.println("voor deformatteerLijn");
 				deformatteerLijn(lijn);
 			}
 			reader.close();
 		}
 		catch (Exception ex){
-			
+			throw(ex);
 		}
 	}
 	
@@ -61,7 +62,7 @@ public abstract class FileContainer {
 				System.out.println("te schrijven lijn " + teSchrijvenLijn);
 				if(teSchrijvenLijn != null)
 				{
-					schrijver.format("%s %n", teSchrijvenLijn);
+					schrijver.format("%s%n", teSchrijvenLijn);
 				}
 			}
 		} catch (SecurityException ex) {

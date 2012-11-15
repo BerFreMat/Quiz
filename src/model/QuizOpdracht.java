@@ -3,6 +3,10 @@
  */
 package model;
 
+import exceptions.OpdrachtNietGevondenException;
+import exceptions.QuizNietGevondenException;
+import exceptions.QuizNietWijzigbaarException;
+
 /**
  * @author java
  *
@@ -13,12 +17,12 @@ public class QuizOpdracht {
 	private int opdrachtId;
 	private int maxScore;
 
-/*	private QuizOpdracht (Quiz quiz, Opdracht opdracht, int maxScore){
-		this.quiz = quiz;
-		this.opdracht = opdracht;
-		this.setMaxScore(maxScore);		
+	private QuizOpdracht (Quiz quiz, Opdracht opdracht, int maxScore){
+		this.quizId = quiz.getQuizId();
+		this.opdrachtId = opdracht.getOpdrachtId();
+		this.maxScore = maxScore;
 	}
-*/	
+		
 	public QuizOpdracht(int quizId, int opdrachtId, int maxScore) {
 		super();
 		this.quizId = quizId;
@@ -34,20 +38,27 @@ public class QuizOpdracht {
 		opdracht.voegQuizOpdrachtToe(quizOpdracht);
 	}
 */	
-	
-	public static void koppelOpdrachtAanQuiz(
-			Quiz quiz, Opdracht opdracht, int maxScore){
+	public static void koppelOpdrachtAanQuiz(QuizCatalogus quizCatalogus,
+			OpdrachtCatalogus opdrachtCatalogus, Quiz quiz, Opdracht opdracht,
+			int maxScore) throws QuizNietWijzigbaarException, QuizNietGevondenException, OpdrachtNietGevondenException {
 		QuizOpdracht quizOpdracht = 
-                            new QuizOpdracht(quiz.getQuizId(),opdracht.getOpdrachtId(),maxScore);
+                new QuizOpdracht(quiz,opdracht,maxScore);
 		quiz.voegQuizOpdrachtToe(quizOpdracht);
 		opdracht.voegQuizOpdrachtToe(quizOpdracht);
+		quizCatalogus.wijzigQuiz(quiz);
+		opdrachtCatalogus.wijzigOpdracht(opdracht);		
 	}
-	
 
-
-	public void ontKoppelOpdrachtVanQuiz(QuizCatalogus quizcatalogus, OpdrachtCatalogus opdrachtCatalogus){
-		quizcatalogus.verwijderQuizOpdracht(this);
-		opdrachtCatalogus.verwijderQuizOpdracht(this);
+	public void ontKoppelOpdrachtVanQuiz(QuizCatalogus quizCatalogus, OpdrachtCatalogus opdrachtCatalogus,  Quiz quiz, Opdracht opdracht) throws QuizNietWijzigbaarException, QuizNietGevondenException, OpdrachtNietGevondenException{
+//		quizcatalogus.verwijderQuizOpdracht(this);
+//		opdrachtCatalogus.verwijderQuizOpdracht(this);
+		if(quizId == quiz.getQuizId() && opdrachtId == opdracht.getOpdrachtId())
+		{
+			quiz.verwijderdQuizOpdracht(this);
+			opdracht.verwijderdQuizOpdracht(this);
+			quizCatalogus.wijzigQuiz(quiz);
+			opdrachtCatalogus.wijzigOpdracht(opdracht);
+		}
 	}
 
 	public int getQuizId() {
@@ -102,5 +113,13 @@ public class QuizOpdracht {
 	public Opdracht getOpdracht(OpdrachtCatalogus opdrachtCatalogus) {
 		opdrachtCatalogus.getOpdracht(opdrachtId);
 		return null;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "QuizOpdracht [quizId=" + quizId + ", opdrachtId=" + opdrachtId
+				+ ", maxScore=" + maxScore + "]";
+	}
+
+		
 }
