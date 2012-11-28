@@ -9,22 +9,16 @@ package model;
 	 */
 
 public enum Leraar {
-	LERAAR1("Bart"),
-	LERAAR2("Kim"),
-	LERAAR3("Stijn"),
-	LERAAR4("Peter"),
-	LERAAR5("Kristel");
+	Bart(1),Kim(2),Stijn(3),Peter(4),Kristel(5);
 	
-	private String naamLr;
+	private final int id;
+	Leraar(int id) {
+		this.id = id;
+	}
 	
-	private Leraar(String naamLeraar)
+	public int getNaamLeraar()
 	{
-		naamLr = naamLeraar;
+		return id;
 	}
-	public String getNaamLeraar()
-	{
-		return naamLr;
-	}
-
 
 }

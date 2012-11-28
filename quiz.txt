@@ -1,5 +1,17 @@
-1:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::18/11/2012
-2:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::18/11/2012
-3:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::18/11/2012
-4:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::18/11/2012
-5:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null:5 0 2;:18/11/2012
+1:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+2:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+3:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+4:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+5:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+6:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+7:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+8:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+9:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+10:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+11:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+12:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+13:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+14:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+15:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+16:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null::28/11/2012
+17:Hoofdsteden Europa quiz 1:null:false:false:IN_CONSTRUCTIE:null:17 0 2;:28/11/2012

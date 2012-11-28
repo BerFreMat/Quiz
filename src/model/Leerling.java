@@ -9,7 +9,7 @@ package model;
  */
 public class Leerling {
 	private String leerlingNaam;
-	private Leerjaar leerjaar;
+	private int leerJaar;
 	/**
 	 * @return the leerlingNaam
 	 */
@@ -23,33 +23,29 @@ public class Leerling {
 		this.leerlingNaam = leerlingNaam;
 	}
 	/**
+	 * @return 
 	 * @return the leerjaar
 	 */
-	public Leerjaar getLeerjaar() {
-		return leerjaar;
+	public int  getLeerjaar() {
+		
+		return leerJaar;
 	}
 	/**
 	 * @param leerjaar the leerjaar to set
 	 */
-	public void setLeerjaar(Leerjaar leerjaar) {
-		this.leerjaar = leerjaar;
+	public void setLeerjaar(int leerJaar) {
+		this.leerJaar = leerJaar;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((leerjaar == null) ? 0 : leerjaar.hashCode());
+		result = prime * result + leerJaar;
 		result = prime * result
 				+ ((leerlingNaam == null) ? 0 : leerlingNaam.hashCode());
 		return result;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -59,7 +55,7 @@ public class Leerling {
 		if (getClass() != obj.getClass())
 			return false;
 		Leerling other = (Leerling) obj;
-		if (leerjaar != other.leerjaar)
+		if (leerJaar != other.leerJaar)
 			return false;
 		if (leerlingNaam == null) {
 			if (other.leerlingNaam != null)
@@ -82,7 +78,7 @@ public class Leerling {
 	@Override
 	public String toString() {
 		return "Leerling [leerlingNaam=" + leerlingNaam + ", leerjaar="
-				+ leerjaar + "]";
+				+ leerJaar + "]";
 	}
 	
 }

@@ -11,7 +11,7 @@ import exceptions.QuizNietWijzigbaarException;
  * @author java
  *
  */
-public class QuizOpdracht {
+public class QuizOpdracht implements PersisteerbaarAlsTekst {
 
 	private int quizId;
 	private int opdrachtId;
@@ -30,7 +30,11 @@ public class QuizOpdracht {
 		this.maxScore = maxScore;
 	}
 
-/*	public static void koppelOpdrachtAanQuiz(
+	public QuizOpdracht() {
+		super();
+	}
+
+	/*	public static void koppelOpdrachtAanQuiz(
 			Quiz quiz, Opdracht opdracht, int maxScore){
 		QuizOpdracht quizOpdracht = 
                             new QuizOpdracht(quiz,opdracht,maxScore);
@@ -119,6 +123,22 @@ public class QuizOpdracht {
 	public String toString() {
 		return "QuizOpdracht [quizId=" + quizId + ", opdrachtId=" + opdrachtId
 				+ ", maxScore=" + maxScore + "]";
+	}
+
+	@Override
+	public void maakObjectVanString(String lijn) throws Exception {
+		String[] velden = lijn.split(" ");
+		this.setQuizId(Integer.parseInt(velden[0]));
+		this.setOpdrachtId((Integer.parseInt(velden[1])));
+		this.setMaxScore((Integer.parseInt(velden[2])));
+	}
+
+	@Override
+	public String formatteerObjectNaarString() {
+		return  String.format("%s %s %s", 
+				this.getQuizId(),
+				this.getOpdrachtId(),
+				this.getMaxScore());
 	}
 
 		

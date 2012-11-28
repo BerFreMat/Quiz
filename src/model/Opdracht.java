@@ -12,7 +12,7 @@ import DatumGregorian.Datum;
  * @author java
  *
  */
-public abstract class Opdracht {
+public abstract class Opdracht implements PersisteerbaarAlsTekst {
 
 	private String vraag;
 	private String juisteAntwoord;	
@@ -216,4 +216,122 @@ public abstract class Opdracht {
 	public void verwijderdQuizOpdracht(QuizOpdracht quizOpdracht) {
 		quizOpdrachten.remove(quizOpdracht);
 	}
+	
+	@Override
+	public void maakObjectVanString(String lijn) throws Exception {
+		String[] velden = lijn.split(":");
+		this.setVraag(velden[0]);
+		this.setJuisteAntwoord(velden[1]);
+		this.setMaxAantalPogingen(Integer.parseInt(velden[2]));
+		this.setAntwoordHints(this.deformatteerAntwoordHints(velden[3]));
+		this.setMaxAntwoordTijd(Integer.parseInt(velden[4]));
+		this.setAuteur(deformatteerAuteur(velden[5]));
+		this.setCategorie(deformatteerOpdrachtCategorie(velden[6]));
+		this.setOpdrachtSoort(OpdrachtSoort.valueOf(velden[7]));
+		this.setOpdrachtId(Integer.parseInt(velden[8]));
+		this.setQuizOpdrachten(deformatteerQuizOpdrachten(velden[9]));
+		this.setDatumRegistratie(new DatumGregorian.Datum(velden[10]));
+	}
+
+	@Override
+	public String formatteerObjectNaarString() {
+		return String.format("%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s", 
+		this.getVraag(),
+		this.getJuisteAntwoord(),
+		this.getMaxAantalPogingen(),
+		this.formatteerAntwoordHints(antwoordHints),
+		this.getMaxAntwoordTijd(),
+		this.getAuteur(),
+		this.getCategorie(),
+		this.getOpdrachtSoort(),
+		this.getOpdrachtId(),
+		formatteerQuizOpdrachten(this.getQuizOpdrachten()),
+		this.getDatumRegistratie().toStringInEuropees());
+	}
+	
+	private String formatteerQuizOpdrachten(
+			List<QuizOpdracht> quizOpdrachten) {
+		
+		String geformatteerdeQuizOprdrachten = new String();
+		for (QuizOpdracht quizOpdracht : quizOpdrachten) {
+			geformatteerdeQuizOprdrachten +=  quizOpdracht.formatteerObjectNaarString() + ";";
+		}
+		return geformatteerdeQuizOprdrachten;
+	}
+	
+	private ArrayList<QuizOpdracht> deformatteerQuizOpdrachten(String quizOpdrachten) throws Exception {
+		if (!quizOpdrachten.equals("null"))
+		{
+			String[] quizOpdrachtenGesplit = quizOpdrachten.split(";");
+			ArrayList<QuizOpdracht> quizOpdrachtenLijst = new ArrayList<QuizOpdracht>();
+			for(int i = 0 ; i < quizOpdrachtenGesplit.length - 1 ; i ++)
+			{
+				QuizOpdracht quizOprdracht =  new QuizOpdracht();
+				quizOprdracht.maakObjectVanString(quizOpdrachtenGesplit[i]);
+				quizOpdrachtenLijst.add(quizOprdracht);
+			}
+			return quizOpdrachtenLijst;
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
+	private String formatteerAntwoordHints(
+			ArrayList<String> antwoordHints) {
+		
+		if(antwoordHints != null)
+		{
+			String geformatteerdeAntwoordHints = new String();
+			for (String antwoordHint : antwoordHints) {
+				geformatteerdeAntwoordHints +=  antwoordHint + ";";
+			}
+			return geformatteerdeAntwoordHints;
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
+	private ArrayList<String> deformatteerAntwoordHints(String antwoordHints)  {
+		if (!antwoordHints.equals("null"))
+		{
+			String[] antwoordHintsGesplit = antwoordHints.split(";");
+			ArrayList<String> antwoordHintsLijst = new ArrayList<String>();
+			for(int i = 0 ; i < antwoordHintsGesplit.length - 1 ; i ++)
+			{
+				antwoordHintsLijst.add(antwoordHintsGesplit[i]);
+			}
+			return antwoordHintsLijst;
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
+	private Leraar deformatteerAuteur(String auteur) {
+		if(!auteur.equals("null"))
+		{
+			return Leraar.valueOf(auteur);
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
+	private OpdrachtCategorie deformatteerOpdrachtCategorie(String opdrachtCategorie) {
+		if(!opdrachtCategorie.equals("null"))
+		{
+			return OpdrachtCategorie.valueOf(opdrachtCategorie);
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
 }

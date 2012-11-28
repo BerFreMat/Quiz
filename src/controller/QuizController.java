@@ -42,6 +42,11 @@ public class QuizController {
 			
 
 			quizCatalogus.schrijfNaarBestand();
+			opdrachtCatalogus.schrijfNaarBestand();
+			
+			OpdrachtCatalogus opdrachtCatalogusTestLees = new OpdrachtCatalogus();
+			opdrachtCatalogusTestLees.lezen();
+			System.out.println(opdrachtCatalogusTestLees.toString());
 		}
 		catch (Exception ex)
 		{

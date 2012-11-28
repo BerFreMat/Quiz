@@ -2,8 +2,13 @@
  * 
  */
 package model;
+import model.*;
+import model.EenvoudigeOpdracht;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import DatumGregorian.Datum;
 
 import exceptions.OpdrachtNietGevondenException;
 import exceptions.ReedsBestaandeOpdrachtException;
@@ -12,7 +17,7 @@ import exceptions.ReedsBestaandeOpdrachtException;
  * @author java
  *
  */
-public class OpdrachtCatalogus {
+public class OpdrachtCatalogus extends FileContainer {
 	private ArrayList<Opdracht> opdrachten;
 
 	/**
@@ -69,10 +74,7 @@ public class OpdrachtCatalogus {
 			opdrachten.set(positieOpdracht, opdracht);
 		}	
 	}
-	public void verwijderQuizOpdracht(QuizOpdracht quizOpdracht) {
-		// TODO Auto-generated method stub
-		
-	}	  
+	
 	public void verwijderdQuizOpdracht(QuizOpdracht quizOpdracht) {
 		for(Opdracht opdracht : opdrachten)
 		{
@@ -99,5 +101,63 @@ public class OpdrachtCatalogus {
 			return opd;
 		}
 		return null;
+	}
+
+	
+	@Override
+	public String getFile() {
+		return "opdracht.txt";
+	}
+	
+	@Override
+	public void deformatteerLijn(String lijn) throws Exception {
+		String[] gesplit = lijn.split("#");
+		Opdracht opdracht;
+	//	opdracht = (Opdracht)Class.forName(OpdrachtSoort.valueOf(gesplit[0]).getKlasse()).newInstance();
+		switch (OpdrachtSoort.valueOf(gesplit[0])) {
+		case  EENVOUDIGE_VRAAG :
+			opdracht = new EenvoudigeOpdracht();
+			break;
+		default:
+			opdracht = null;
+		}
+		
+		
+		opdracht.maakObjectVanString(gesplit[1]);
+		this.voegOpdrachtToe(opdracht);
+	}
+	@Override
+	public List teSchrijvenLijst() {
+		List teSchrijvenLijst ;
+		teSchrijvenLijst = opdrachten;
+		return teSchrijvenLijst;
+	}
+	@Override
+	public String formatteerObject(Object obj) 
+		{
+			Opdracht opdracht = null;
+			try
+			{
+				opdracht = (Opdracht)obj;
+			}
+			catch (Exception ex)
+			{
+				System.out.println("obj geen quiz");
+			}
+			
+			if (opdracht != null)
+			{
+				return String.format("%s#%s",opdracht.getOpdrachtSoort(),opdracht.formatteerObjectNaarString());
+			}
+			else
+			{
+				return null;
+			}
+		}
+	
+	
+	@Override
+	public String toString() {
+		return "OpdrachtCatalogus [opdrachten=" + opdrachten + "]";
 	}
 }
