@@ -360,7 +360,8 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + quizId;
+		result = prime * result
+				+ ((onderwerp == null) ? 0 : onderwerp.hashCode());
 		return result;
 	}
 
@@ -373,11 +374,15 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 		if (getClass() != obj.getClass())
 			return false;
 		Quiz other = (Quiz) obj;
-		if (quizId != other.quizId)
+		if (onderwerp == null) {
+			if (other.onderwerp != null)
+				return false;
+		} else if (!onderwerp.equals(other.onderwerp))
 			return false;
 		return true;
 	}
-	
+
+
 	public List<QuizOpdracht> getQuizOpdrachten(){		
 		return  quizOpdrachten;
 	}

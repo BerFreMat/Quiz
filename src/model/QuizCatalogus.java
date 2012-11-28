@@ -48,7 +48,6 @@ public class QuizCatalogus extends FileContainer {
 		quiz.setDatumRegistratie(new Datum());
 		int positieQuiz = quizen.indexOf(quiz);
 
-		System.out.println("positieQuiz: "+positieQuiz);
 		if(positieQuiz >= 0)
 		{
 			throw new ReedsBestaandeQuizException();

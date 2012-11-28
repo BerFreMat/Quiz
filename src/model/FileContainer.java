@@ -38,7 +38,6 @@ public abstract class FileContainer {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String lijn = null;
 			while ((lijn = reader.readLine()) != null){
-				System.out.println("voor deformatteerLijn");
 				deformatteerLijn(lijn);
 			}
 			reader.close();
@@ -53,13 +52,12 @@ public abstract class FileContainer {
 
 		try {
 			// open file
+			new File(getFile()).delete();
 			schrijver = new Formatter(new File(getFile()));
 			
 			// records schrijven
 			for (Object obj : teSchrijvenLijst()) {
-				System.out.println(obj);
 				String teSchrijvenLijn =  formatteerObject(obj);
-				System.out.println("te schrijven lijn " + teSchrijvenLijn);
 				if(teSchrijvenLijn != null)
 				{
 					schrijver.format("%s%n", teSchrijvenLijn);

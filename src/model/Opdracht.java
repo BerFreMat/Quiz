@@ -48,7 +48,7 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 	}
 	
 	public Opdracht(String vraag, String juisteAntwoord, Leraar auteur,
-			OpdrachtCategorie categorie, int opdrachtId) {
+			OpdrachtCategorie categorie) {
 		super();
 		this.vraag = vraag;
 		this.juisteAntwoord = juisteAntwoord;
@@ -57,7 +57,7 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 		maxAantalPogingen = 1;
 		datumRegistratie = new Datum();
 		maxAntwoordTijd = 0;
-		this.opdrachtId = opdrachtId;
+		this.opdrachtId = -1;
 		quizOpdrachten = new ArrayList <QuizOpdracht>();
 	}
 	
@@ -148,9 +148,8 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
-	 * equals methode is volledig gebaseerd op de vraag en opdrachtId.
+	 * equals methode is volledig gebaseerd op de vraag
 	 * Als de vraag gelijk is worden twee opdrachten als gelijk beschouwd.
-	 * Als de opdrachtId gelijk is worden twee opdrachten als gelijk beschouwd.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -235,6 +234,11 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 
 	@Override
 	public String formatteerObjectNaarString() {
+		System.out.println(String.format("%s:%s", 
+				this.getVraag(),
+				this.getJuisteAntwoord()));
+		
+		
 		return String.format("%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s", 
 		this.getVraag(),
 		this.getJuisteAntwoord(),

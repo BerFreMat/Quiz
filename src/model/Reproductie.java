@@ -14,9 +14,9 @@ public class Reproductie  extends Opdracht
 	}
 	
 	public Reproductie(String vraag, String juisteAntwoord, Leraar auteur,
-			OpdrachtCategorie categorie,List<String> trefwoorden, int minAantalJuisteTrefwoorden, int opdrachtId )
+			OpdrachtCategorie categorie,List<String> trefwoorden, int minAantalJuisteTrefwoorden )
 	{
-		super(vraag,"",auteur,categorie,opdrachtId);		
+		super(vraag,"",auteur,categorie);		
 		trefwoorden = new ArrayList<String>();
 		this.minAantalJuisteTrefwoorden = minAantalJuisteTrefwoorden;
 		this.setOpdrachtSoort(OpdrachtSoort.REPRODUCTIE);

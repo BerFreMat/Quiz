@@ -5,9 +5,9 @@ public class Opsomming  extends Opdracht implements Valideerbaar {
 	private boolean inJuisteVolgorde;
 	
 	public Opsomming(String vraag, String juisteAntwoord, Leraar auteur,
-			OpdrachtCategorie categorie, boolean inJuisteVolgorde,int opdrachtId)
+			OpdrachtCategorie categorie, boolean inJuisteVolgorde)
 	{
-		super(vraag,juisteAntwoord,auteur,categorie,opdrachtId);
+		super(vraag,juisteAntwoord,auteur,categorie);
 		this.inJuisteVolgorde = inJuisteVolgorde;
 		this.setOpdrachtSoort(OpdrachtSoort.OPSOMMING);
 	}

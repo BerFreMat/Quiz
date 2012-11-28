@@ -3,7 +3,6 @@
  */
 package model;
 import model.*;
-import model.EenvoudigeOpdracht;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class OpdrachtCatalogus extends FileContainer {
 	/**
 	 * @return the opdrachten
 	 */
-	private ArrayList<Opdracht> getOpdrachten() {
+	public ArrayList<Opdracht> getOpdrachten() {
 		return opdrachten;
 	}
 	public OpdrachtCatalogus() {
@@ -45,7 +44,7 @@ public class OpdrachtCatalogus extends FileContainer {
 			throw new ReedsBestaandeOpdrachtException();}
 		else
 		{
-			opdracht.setOpdrachtId(opdrachten.size());
+			opdracht.setOpdrachtId(this.getMaxOpdrachtId()+1);
 			opdrachten.add(opdracht);
 		}
 	}
@@ -118,6 +117,15 @@ public class OpdrachtCatalogus extends FileContainer {
 		case  EENVOUDIGE_VRAAG :
 			opdracht = new EenvoudigeOpdracht();
 			break;
+		case  MEERKEUZE :
+			opdracht = new EenvoudigeOpdracht();
+			break;
+		case  OPSOMMING :
+			opdracht = new EenvoudigeOpdracht();
+			break;
+		case  REPRODUCTIE :
+			opdracht = new EenvoudigeOpdracht();
+			break;
 		default:
 			opdracht = null;
 		}
@@ -134,30 +142,91 @@ public class OpdrachtCatalogus extends FileContainer {
 	}
 	@Override
 	public String formatteerObject(Object obj) 
+	{
+		Opdracht opdracht = null;
+		try
 		{
-			Opdracht opdracht = null;
-			try
+			opdracht = (Opdracht)obj;
+		}
+		catch (Exception ex)
+		{
+			System.out.println("obj geen quiz");
+		}
+		
+		if (opdracht != null)
+		{
+			return String.format("%s#%s",opdracht.getOpdrachtSoort(),opdracht.formatteerObjectNaarString());
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
+	
+	public List<Opdracht> getOpdrVanType(OpdrachtSoort opdrachtsoort)
+	{
+		List<Opdracht> opdrachtenVanType = new ArrayList<Opdracht>();
+		if (opdrachtsoort != null 
+				&&	this.getOpdrachten() != null 
+				&&	this.getOpdrachten().size() > 0)
+		{
+			for(Opdracht opdracht : this.getOpdrachten())
 			{
-				opdracht = (Opdracht)obj;
-			}
-			catch (Exception ex)
-			{
-				System.out.println("obj geen quiz");
-			}
-			
-			if (opdracht != null)
-			{
-				return String.format("%s#%s",opdracht.getOpdrachtSoort(),opdracht.formatteerObjectNaarString());
-			}
-			else
-			{
-				return null;
+				if (opdracht.getOpdrachtSoort().equals(opdrachtsoort))
+				{
+					opdrachtenVanType.add(opdracht);
+				}
 			}
 		}
+		return opdrachtenVanType;
+	}	
 	
+	public List<Opdracht> getOpdrVanCategorie(OpdrachtCategorie opdrachtCategorie)
+	{
+		List<Opdracht> opdrachtenVanCategorie = new ArrayList<Opdracht>();
+		if (opdrachtCategorie != null 
+				&&	this.getOpdrachten() != null 
+				&&	this.getOpdrachten().size() > 0)
+		{
+			for(Opdracht opdracht : this.getOpdrachten())
+			{
+				if (opdracht.getCategorie() != null &&
+						opdracht.getCategorie().equals(opdrachtCategorie))
+				{
+					opdrachtenVanCategorie.add(opdracht);
+				}
+			}
+		}
+		return opdrachtenVanCategorie;
+	}
+	
+	public void voegQuizToe(Quiz quiz) {
+		if (quiz != null)
+		{
+			if(quiz.getQuizOpdrachten() != null && quiz.getQuizOpdrachten().size() > 0)
+			{
+				for(QuizOpdracht quizOpdracht : quiz.getQuizOpdrachten())
+				{
+					getOpdracht(quizOpdracht.getOpdrachtId()).voegQuizOpdrachtToe(quizOpdracht);
+				}
+			}
+		}
+	}
 	
 	@Override
 	public String toString() {
 		return "OpdrachtCatalogus [opdrachten=" + opdrachten + "]";
+	}
+	
+	public int getMaxOpdrachtId()
+	{
+		int i = 0;
+		for (Opdracht opdracht : this.opdrachten)
+		{
+			if(opdracht.getOpdrachtId() > i)
+				i = opdracht.getOpdrachtId();
+		}
+		return i;
 	}
 }

@@ -9,8 +9,8 @@ public class EenvoudigeOpdracht extends Opdracht{
 	}
 
 	public EenvoudigeOpdracht(String vraag, String juisteAntwoord,
-			Leraar auteur, OpdrachtCategorie categorie, int opdrachtId) {
-		super(vraag, juisteAntwoord, auteur, categorie, opdrachtId);
+			Leraar auteur, OpdrachtCategorie categorie) {
+		super(vraag, juisteAntwoord, auteur, categorie);
 		this.setOpdrachtSoort(OpdrachtSoort.EENVOUDIGE_VRAAG);
 		// TODO Auto-generated constructor stub
 	}

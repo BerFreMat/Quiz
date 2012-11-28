@@ -29,9 +29,9 @@ public class Meerkeuze  extends Opdracht implements Valideerbaar {
 	}
 	
 	public Meerkeuze(String vraag, String juisteAntwoord, Leraar auteur,
-			OpdrachtCategorie categorie, int opdrachtId)
+			OpdrachtCategorie categorie)
 	{
-		super(vraag,juisteAntwoord,auteur,categorie, opdrachtId);		
+		super(vraag,juisteAntwoord, auteur,categorie);		
 		keuzen = new ArrayList<String>();
 		this.setOpdrachtSoort(OpdrachtSoort.MEERKEUZE);
 	}
@@ -57,13 +57,60 @@ public class Meerkeuze  extends Opdracht implements Valideerbaar {
 			return false;
 		}
 	}
+	
+	@Override
+	public String formatteerObjectNaarString() {
+		return String.format("%s§%s",
+				super.formatteerObjectNaarString(),
+				this.formatteerKeuzen());
+	}
 
+	@Override
+	public void maakObjectVanString(String lijn) throws Exception {
+		String[] velden = lijn.split("§");
+		super.maakObjectVanString(velden[0]);
+		this.keuzen = this.deformatteerKeuzen(velden[1]);
+	}
+	
+	
+	
 	@Override
 	public String getValideerTekst() {
 		return String.format("Geef je keuze door een getal in te geven tussen 1 en %d", keuzen.size())  ;		
 	}
 	
 	
+	private String formatteerKeuzen() {
+		
+		if(this.getKeuzen() != null)
+		{
+		  	String geformatteerdeKeuzen = new String();
+			for (String keuze : this.getKeuzen()) {
+				geformatteerdeKeuzen +=  keuze + ";";
+			}
+			return geformatteerdeKeuzen; 
+		}
+		else
+		{
+			return "null";
+		}
+	}
 	
+	private ArrayList<String> deformatteerKeuzen(String keuzen)  {
+		if (!keuzen.equals("null"))
+		{
+			String[] keuzenGesplit = keuzen.split(";");
+			ArrayList<String> keuzenLijst = new ArrayList<String>();
+			for(int i = 0 ; i < keuzenGesplit.length - 1 ; i ++)
+			{
+				keuzenLijst.add(keuzenGesplit[i]);
+			}
+			return keuzenLijst;
+		}
+		else
+		{
+			return null;
+		}
+	}
 
 }
