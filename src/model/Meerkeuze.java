@@ -19,7 +19,7 @@ public class Meerkeuze  extends Opdracht implements Valideerbaar {
 	public String getVraag()
 	{
 		String opgave ="";
-		opgave = super.getVraag() + "\n";
+		opgave = super.getVraag();
 		int i = 1;
 		for (String keuze:keuzen){
 			opgave+=i + ". " + keuze + "\n";

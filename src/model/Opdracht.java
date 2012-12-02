@@ -123,7 +123,7 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 	public void setAntwoordHints(ArrayList<String> antwoordHints) {
 		this.antwoordHints = antwoordHints;
 	}
-	public boolean isJuisteAntwoord(String antwoord){
+	public boolean isJuisteAntwoord(String antwoord) throws Exception{
 		if( antwoord.equalsIgnoreCase(this.juisteAntwoord))
 		{
 			return true;

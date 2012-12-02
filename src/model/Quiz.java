@@ -128,9 +128,6 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 		return onderwerp;
 	}
 	
-	public ArrayList<Leerjaar> getLeerjaren(ArrayList<Leerjaar> leerJaar) {
-		return leerJaar;
-	}
 	
 	public List<Leerjaar> getLeerjaren() {
 		return leerjaren;
