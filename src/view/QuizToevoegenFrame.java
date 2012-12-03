@@ -30,6 +30,7 @@ public class QuizToevoegenFrame extends JFrame {
 	private JTextField txtOnderwerp;
 	private JTable tblOpdrachtenToeTeVoegen;
 	
+
 	
 	/**
 	 * Launch the application.
@@ -182,16 +183,22 @@ public class QuizToevoegenFrame extends JFrame {
 		cmbAuteur.setBounds(100, 179, 169, 24);
 		getContentPane().add(cmbAuteur);
 		
-		/**
+		
+		//Opdrachtenlijst omvormen naar een Array van Strings om in de lijst te gebruiken
 		int aantalopdrachten = this.opstartcontroller.getOpdrachten().size();
 		String[] opdrlijst = new String[aantalopdrachten];
+		try{		
 		for(int i=0;i<=aantalopdrachten;i++){
-			opdrlijst[i]= this.opstartcontroller.getOpdrachten().get(i).toString();
-		}
+			opdrlijst[i]= this.opstartcontroller.getOpdrachten().get(i).getOpdrachtId() +"\t" 
+					+ String.format("%-15s\t", this.opstartcontroller.getOpdrachten().get(i).getVraag()) +"\t" 
+					+ String.format("%-10s\t",this.opstartcontroller.getOpdrachten().get(i).getCategorie()) +"\n";
+			System.out.printf("%-15s\t",opdrlijst[i]);
+		}}
+		catch(Exception exc){System.out.println(exc.getMessage());}
 		JList listAlleOpdrachten = new JList(opdrlijst);
 		listAlleOpdrachten.setBounds(22, 357, 1, 1);
 		getContentPane().add(listAlleOpdrachten);
-		*/
+		
 		
 
 		

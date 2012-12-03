@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import view.QuizToevoegenFrame;
+
 import exceptions.ReedsBestaandeQuizException;
 import model.*;
 
@@ -18,7 +20,9 @@ public class ToevoegenQuizController {
 	public ToevoegenQuizController(DAOFacade df, OpstartController opstartcontroller){
 		this.daofacade = df;
 		this.opdrachtcatalogus = df.getOpdrachten();
-		quiztoevoegenframe = new QuizToevoegenFrame();
+		quiztoevoegenframe = new QuizToevoegenFrame(opstartcontroller, this);
+		
+		
 		
 	}
 	
