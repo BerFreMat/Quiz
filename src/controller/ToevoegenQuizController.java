@@ -2,6 +2,8 @@ package controller;
 
 import java.util.List;
 
+import javax.swing.JFrame;
+
 import exceptions.ReedsBestaandeQuizException;
 import model.*;
 
@@ -11,10 +13,12 @@ public class ToevoegenQuizController {
 	private List<Opdracht> opdrachtcatalogus;
 	private List<Opdracht> opdrachtenNogToeTeVoegen;
 	private List<Opdracht> opdrachtenToegevoegd;
+	private JFrame quiztoevoegenframe;
 	
-	public ToevoegenQuizController(DAOFacade df, List<Opdracht> opdrlijst){
+	public ToevoegenQuizController(DAOFacade df, OpstartController opstartcontroller){
 		this.daofacade = df;
-		this.opdrachtcatalogus = opdrlijst;
+		this.opdrachtcatalogus = df.getOpdrachten();
+		quiztoevoegenframe = new QuizToevoegenFrame();
 		
 	}
 	

@@ -21,7 +21,7 @@ public class OpstartController {
 	
 	public OpstartController(){
 		
-		toevoegenquizcontroller = new ToevoegenQuizController(daofacade, opdrachtcatalogus);
+		
 		//inlezen daofacade
 		try {
 			daofacade = new TextDAOFacade();
@@ -46,8 +46,8 @@ public class OpstartController {
 		int keuze = menu.getMenuKeuze();
 		
 		switch(keuze){
-		case 1: toevoegenquizframe = new QuizToevoegenFrame(this, toevoegenquizcontroller);
-				toevoegenquizframe.setVisible(true);
+		case 1: toevoegenquizcontroller = new ToevoegenQuizController(daofacade, this);
+
 				break;
 		default: 
 			if (keuze != menu.getStopWaarde()){
