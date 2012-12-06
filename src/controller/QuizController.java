@@ -1,4 +1,6 @@
 package controller;
+import persistency.DAOFacade;
+import persistency.TextDAOFacade;
 import model.*;
 public class QuizController {
 	

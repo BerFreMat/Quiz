@@ -112,7 +112,8 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 		this.auteur = auteur;
 	}
 	public OpdrachtCategorie getCategorie() {
-		return categorie;
+		return(categorie==null)? OpdrachtCategorie.ALGEMEEN : categorie;
+		
 	}
 	public void setCategorie(OpdrachtCategorie categorie) {
 		this.categorie = categorie;
@@ -184,7 +185,7 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 				+ juisteAntwoord + ", antwoordhints" + antwoordHints.toString();
 	}
 	public OpdrachtSoort getOpdrachtSoort() {
-		return opdrachtSoort;
+		return(opdrachtSoort==null)? OpdrachtSoort.EENVOUDIGE_VRAAG : opdrachtSoort;
 	}
 	public void setOpdrachtSoort(OpdrachtSoort opdrachtSoort) {
 		this.opdrachtSoort = opdrachtSoort;

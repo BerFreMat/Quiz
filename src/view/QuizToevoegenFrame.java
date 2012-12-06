@@ -6,8 +6,15 @@ import javax.swing.JFrame;
 
 import controller.*;
 import model.*;
+
 import java.awt.GridLayout;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
@@ -18,6 +25,8 @@ import javax.swing.JList;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.table.TableModel;
@@ -27,10 +36,71 @@ public class QuizToevoegenFrame extends JFrame {
 
 	private OpstartController opstartcontroller;
 	private ToevoegenQuizController toevoegenquizcontroller;
+	
 	private JTextField txtOnderwerp;
-	private JTable tblOpdrachtenToeTeVoegen;
+
+	private JButton btnOpdrachtToevoegen, btnOpdrachtVerwijderen, btnAnnuleer,btnRegistreerQuiz, btnToonAlleOpdrachten;
+	private JComboBox cmbVan, cmbTot, cmbxStatus, cmbTypeFilter,cmbCategorieFilter, cmbAuteur;
+	
+	private Checkbox chbxTest, chbxUniekeDeelname;
+	
+	private List<Opdracht> alleopdrachtenList, opdrachtenGeselecteerdList;
+	
+	private DefaultListModel<Opdracht> listmodelAlleOpdrachten, listmodelToeTeVoegenOpdrachten;
+	private JList opdrachtenNogNietToegevoegdJList; //JList met opdrachten die nog kunnen worden toegevoegd
+	private JList opdrachtenReedsToegevoegdJList; //JList waarin de toe te voegen opdrachten komen
 	
 
+	public QuizStatus getQuizStatus(){
+		return QuizStatus.valueOf(this.cmbxStatus.getSelectedItem().toString());
+	}
+	
+	public boolean getIsTest(){
+		return this.chbxTest.getState();
+		
+	}
+	
+	public boolean getIsUniekeDeelname(){
+		return this.chbxUniekeDeelname.getState();
+		
+	}
+	
+	//Toegankelijk maken van de lijst met geselecteerde opdrachten naar de buitenwereld
+	public List<Opdracht> getOpdrachtenGeselecteerdList() {
+		vulLijstGeselecteerdeOpdrachten();
+		return this.opdrachtenGeselecteerdList;
+	}
+
+
+	
+	//All getters to expose the required fields to the outside world (especially the ToevoegenQuizcontroller)
+	public JButton getBtnRegistreerQuiz()
+	{
+		return this.btnRegistreerQuiz;
+	}
+	
+	public JButton getbtnAnnuleer()
+	{
+		return this.btnAnnuleer;
+	}
+	
+	public String getOnderwerp(){
+		return txtOnderwerp.getText();
+	}
+	
+	public Leraar getAuteur(){
+		return (Leraar)this.cmbAuteur.getSelectedItem();
+	}
+	
+		
+	public Leerjaar getLeerjaarVan(){
+		return Leerjaar.valueOf(this.cmbVan.getSelectedItem().toString());
+	}
+	
+	public Leerjaar getLeerjaarTot(){
+		return Leerjaar.valueOf(this.cmbTot.getSelectedItem().toString());
+	}
+	
 	
 	/**
 	 * Launch the application.
@@ -47,7 +117,36 @@ public class QuizToevoegenFrame extends JFrame {
 			}
 		});
 	}
+	
+	//initiële opvulling van de defaultlistmodel om de jlist met opdrachten te vullen
+	private void vulListModelMetAlleOpdrachten(){
+		if(!alleopdrachtenList.equals(null))
+		{
+			for (Opdracht opd:this.alleopdrachtenList)
+			{
+				listmodelAlleOpdrachten.addElement(opd);
+			}	
+		}
+	}
+	
+	private String[] zetListOpdrachtenOmNaarStringArrayVoorJList(List<Opdracht> lijstvanopdrachten) {
+		int aantalopdrachten = lijstvanopdrachten.size();
+		
+		String[] opdrlijst = new String[aantalopdrachten-1];
+		
+			for(int i=0;i<=aantalopdrachten;i++){
+				opdrlijst[i]= String.format("%3d",lijstvanopdrachten.get(i).getOpdrachtId()) +"\t" 
+						+ lijstvanopdrachten.get(i).getVraag().substring(0, 20) +"\t" 
+						+ lijstvanopdrachten.get(i).getCategorie().toString().substring(0, 8)+"\t" 
+						+ lijstvanopdrachten.get(i).getOpdrachtSoort().toString().substring(0,8) +"\n";	
+			}
+			
+			return opdrlijst;
 
+	}
+	
+	
+	
 	/**
 	 * basic constructor
 	 */
@@ -63,6 +162,10 @@ public class QuizToevoegenFrame extends JFrame {
 		super("Nieuwe Quiz Aanmaken");
 		this.opstartcontroller = opstrtcontrller;
 		this.toevoegenquizcontroller = tvgenquizcntrller;
+		
+		this.alleopdrachtenList = tvgenquizcntrller.getOpdrachtenLijst();
+		this.opdrachtenGeselecteerdList = new ArrayList<Opdracht>();
+		
 		getContentPane().setEnabled(false);
 		setBounds(100, 100, 752, 677);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,11 +187,11 @@ public class QuizToevoegenFrame extends JFrame {
 		lblLeerjaar.setBounds(12, 33, 97, 30);
 		getContentPane().add(lblLeerjaar);
 		
-		JButton btnRegistreerQuiz = new JButton("Registreer Quiz");
+		this.btnRegistreerQuiz = new JButton("Registreer Quiz");
 		btnRegistreerQuiz.setBounds(575, 0, 163, 25);
 		getContentPane().add(btnRegistreerQuiz);
 		
-		JButton btnAnnuleer = new JButton("Annuleer");
+		btnAnnuleer = new JButton("Annuleer");
 		btnAnnuleer.setBounds(575, 33, 163, 25);
 		getContentPane().add(btnAnnuleer);
 		
@@ -100,15 +203,15 @@ public class QuizToevoegenFrame extends JFrame {
 		lblTot.setBounds(199, 75, 70, 15);
 		getContentPane().add(lblTot);
 		
-		JComboBox cmbVan = new JComboBox(Leerjaar.values());
+		cmbVan = new JComboBox(Leerjaar.values());
 		cmbVan.setBounds(100, 70, 97, 24);
 		getContentPane().add(cmbVan);
 		
-		JComboBox cmbTot = new JComboBox(Leerjaar.values());
+		cmbTot = new JComboBox(Leerjaar.values());
 		cmbTot.setBounds(245, 70, 97, 24);
 		getContentPane().add(cmbTot);
 		
-		Checkbox chbxTest = new Checkbox("");
+		chbxTest = new Checkbox("");
 		chbxTest.setBounds(48, 106, 115, 23);
 		getContentPane().add(chbxTest);
 		
@@ -122,9 +225,9 @@ public class QuizToevoegenFrame extends JFrame {
 		lblUniekeDeelname.setBounds(12, 139, 124, 30);
 		getContentPane().add(lblUniekeDeelname);
 		
-		Checkbox checkbox = new Checkbox("");
-		checkbox.setBounds(156, 142, 115, 23);
-		getContentPane().add(checkbox);
+		chbxUniekeDeelname = new Checkbox("");
+		chbxUniekeDeelname.setBounds(156, 142, 115, 23);
+		getContentPane().add(chbxUniekeDeelname);
 		
 		JLabel lblAuteur = new JLabel("Auteur");
 		lblAuteur.setHorizontalAlignment(SwingConstants.LEFT);
@@ -136,7 +239,7 @@ public class QuizToevoegenFrame extends JFrame {
 		lblStatus.setBounds(12, 212, 124, 30);
 		getContentPane().add(lblStatus);
 		
-		JComboBox cmbxStatus = new JComboBox(QuizStatus.values());
+		cmbxStatus = new JComboBox(QuizStatus.values());
 		cmbxStatus.setBounds(100, 218, 169, 24);
 		getContentPane().add(cmbxStatus);
 		
@@ -148,11 +251,11 @@ public class QuizToevoegenFrame extends JFrame {
 		separator_2.setBounds(12, 340, 726, 5);
 		getContentPane().add(separator_2);
 		
-		JButton btnOpdrachtToevoegen = new JButton(">");
+		this.btnOpdrachtToevoegen = new JButton(">");
 		btnOpdrachtToevoegen.setBounds(379, 424, 44, 25);
 		getContentPane().add(btnOpdrachtToevoegen);
 		
-		JButton btnOpdrachtVerwijderen = new JButton("<");
+		this.btnOpdrachtVerwijderen = new JButton("<");
 		btnOpdrachtVerwijderen.setBounds(379, 469, 44, 25);
 		getContentPane().add(btnOpdrachtVerwijderen);
 		
@@ -166,63 +269,117 @@ public class QuizToevoegenFrame extends JFrame {
 		lblCategorie.setBounds(233, 257, 82, 30);
 		getContentPane().add(lblCategorie);
 		
-		JComboBox cmbTypeFilter = new JComboBox(OpdrachtSoort.values());
+		cmbTypeFilter = new JComboBox(OpdrachtSoort.values());
 		cmbTypeFilter.setBounds(48, 260, 122, 24);
 		getContentPane().add(cmbTypeFilter);
 		
-		JComboBox cmbCategorieFilter = new JComboBox(OpdrachtCategorie.values());
+		cmbCategorieFilter = new JComboBox(OpdrachtCategorie.values());
 		cmbCategorieFilter.setBounds(317, 260, 122, 24);
 		getContentPane().add(cmbCategorieFilter);
 		
-		JButton btnToonAlleOpdrachten = new JButton("Toon Alle Opdrachten");
+		btnToonAlleOpdrachten = new JButton("Toon Alle Opdrachten");
 		btnToonAlleOpdrachten.setBounds(142, 299, 217, 25);
 		getContentPane().add(btnToonAlleOpdrachten);
 		
 		
-		JComboBox cmbAuteur = new JComboBox(Leraar.values());
+		cmbAuteur = new JComboBox(Leraar.values());
 		cmbAuteur.setBounds(100, 179, 169, 24);
 		getContentPane().add(cmbAuteur);
 		
 		
+		
+		
 		//Opdrachtenlijst omvormen naar een Array van Strings om in de lijst te gebruiken
-		int aantalopdrachten = this.opstartcontroller.getOpdrachten().size();
+		List<Opdracht> lijstvanopdrachten = this.opstartcontroller.getOpdrachten();
+		int aantalopdrachten = lijstvanopdrachten.size();
+		
 		String[] opdrlijst = new String[aantalopdrachten];
 		try{		
-		for(int i=0;i<=aantalopdrachten;i++){
-			opdrlijst[i]= this.opstartcontroller.getOpdrachten().get(i).getOpdrachtId() +"\t" 
-					+ String.format("%-15s\t", this.opstartcontroller.getOpdrachten().get(i).getVraag()) +"\t" 
-					+ String.format("%-10s\t",this.opstartcontroller.getOpdrachten().get(i).getCategorie()) +"\n";
-			System.out.printf("%-15s\t",opdrlijst[i]);
-		}}
-		catch(Exception exc){System.out.println(exc.getMessage());}
-		JList listAlleOpdrachten = new JList(opdrlijst);
-		listAlleOpdrachten.setBounds(22, 357, 1, 1);
-		getContentPane().add(listAlleOpdrachten);
+			for(int i=0;i<aantalopdrachten;i++){
+				opdrlijst[i]= String.format("%3d",lijstvanopdrachten.get(i).getOpdrachtId()) +"\t" 
+						+ lijstvanopdrachten.get(i).getVraag().substring(0, 20) +"\t" 
+						+ lijstvanopdrachten.get(i).getCategorie().toString().substring(0, 8)+"\t" 
+						+ lijstvanopdrachten.get(i).getOpdrachtSoort().toString().substring(0,8) +"\n";								
+				//System.out.printf(opdrlijst[i]);
+			}
+		}
+		catch(Exception exc){
+			System.out.println(exc.getMessage());
+		}
 		
+		//JList tonen met opdrachten die kunnen worden toegevoegd
+		listmodelAlleOpdrachten = new DefaultListModel<Opdracht>();
+		vulListModelMetAlleOpdrachten();
+		opdrachtenNogNietToegevoegdJList = new JList(listmodelAlleOpdrachten);
+		opdrachtenNogNietToegevoegdJList.setVisibleRowCount(10);
+		opdrachtenNogNietToegevoegdJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		//add(new JScrollPane(listAlleOpdrachten));
+		opdrachtenNogNietToegevoegdJList.setBounds(50, 400, 300, 300);
+		getContentPane().add(opdrachtenNogNietToegevoegdJList);
+		
+		//JList tonen met opdrachten die kunnen worden toegevoegd
+		listmodelToeTeVoegenOpdrachten = new DefaultListModel<Opdracht>();
+		opdrachtenReedsToegevoegdJList = new JList(listmodelToeTeVoegenOpdrachten);
+		opdrachtenReedsToegevoegdJList.setVisibleRowCount(10);
+		opdrachtenReedsToegevoegdJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		//add(new JScrollPane(listAlleOpdrachten));
+		opdrachtenReedsToegevoegdJList.setBounds(450, 400, 300, 300);
+		getContentPane().add(opdrachtenReedsToegevoegdJList);
 		
 
 		
 		
-		//event handlers
-		btnRegistreerQuiz.addActionListener(new ActionListener()
+		//event handling
+		AddRemoveButtonHandler addremoveopdrHandler = new AddRemoveButtonHandler();
+		btnOpdrachtToevoegen.addActionListener(addremoveopdrHandler);
+		btnOpdrachtVerwijderen.addActionListener(addremoveopdrHandler);
+	
+	}
+	
+	
+	//Vul een List met de geselecteerde opdrachten
+	private void vulLijstGeselecteerdeOpdrachten(){
+		int aantalopdr = this.listmodelToeTeVoegenOpdrachten.getSize();
+		for(int i=0;i<=aantalopdr-1;i++)
 		{
-			public void actionPerformed(ActionEvent event) {
-				Quiz nieuwequiz = new Quiz(txtOnderwerp.getText());
-				
-				try {
-					toevoegenquizcontroller.quiztoevoegen(nieuwequiz);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			Opdracht nopdr = listmodelToeTeVoegenOpdrachten.get(i);
+			opdrachtenGeselecteerdList.add(nopdr);
+		}
+	}
+	
+	
+	//inner class for handling of '<' and '>' buttons
+			private class AddRemoveButtonHandler implements ActionListener
+			{
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					String string = ""; //string to be added or removed in either lists
+					
+					if(e.getSource()==btnOpdrachtToevoegen){
+						if(opdrachtenNogNietToegevoegdJList.getSelectedValue()!=null){
+							Opdracht opdr = (Opdracht)opdrachtenNogNietToegevoegdJList.getSelectedValue();
+							listmodelToeTeVoegenOpdrachten.addElement(opdr);
+							listmodelAlleOpdrachten.removeElement(opdr);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null,"Gelieve een opdracht te selecteren","Geen selectie",JOptionPane.PLAIN_MESSAGE);
+						}
+					}
+					else if (e.getSource()==btnOpdrachtVerwijderen){
+						if(opdrachtenReedsToegevoegdJList.getSelectedValue()!=null){
+							Opdracht opdr = (Opdracht)opdrachtenReedsToegevoegdJList.getSelectedValue();
+							listmodelAlleOpdrachten.addElement(opdr);
+							listmodelToeTeVoegenOpdrachten.removeElement(opdr);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null,"Gelieve een opdracht te selecteren","Geen selectie",JOptionPane.PLAIN_MESSAGE);
+						}
+					}
 				}
 				
 			}
-			
-			
-		});
-		
-		
-		
 
-	}
 }

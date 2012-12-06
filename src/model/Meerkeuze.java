@@ -7,6 +7,10 @@ public class Meerkeuze  extends Opdracht implements Valideerbaar {
 
 	private List<String> keuzen;
 	
+	public Meerkeuze(){
+		
+	}
+	
 	public List<String> getKeuzen() {
 		return keuzen;
 	}

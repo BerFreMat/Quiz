@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import persistency.DAOFacade;
+import persistency.TextDAOFacade;
+
 import model.*;
 import view.*;
 
@@ -46,7 +49,7 @@ public class OpstartController {
 		int keuze = menu.getMenuKeuze();
 		
 		switch(keuze){
-		case 1: toevoegenquizcontroller = new ToevoegenQuizController(daofacade, this);
+		case 1: toevoegenquizcontroller = new ToevoegenQuizController(daofacade, this);				
 
 				break;
 		default: 

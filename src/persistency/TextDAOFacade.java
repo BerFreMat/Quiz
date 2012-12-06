@@ -1,11 +1,19 @@
 /**
  * 
  */
-package model;
+package persistency;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Opdracht;
+import model.OpdrachtCatalogus;
+import model.OpdrachtCategorie;
+import model.OpdrachtSoort;
+import model.Quiz;
+import model.QuizCatalogus;
+
+import exceptions.OpdrachtNietGevondenException;
 import exceptions.ReedsBestaandeOpdrachtException;
 import exceptions.ReedsBestaandeQuizException;
 
@@ -24,6 +32,13 @@ public class TextDAOFacade implements DAOFacade {
     	this.opdrachtCatalogus = new OpdrachtCatalogus();
     	this.quizCatalogus.lezen();
     	this.opdrachtCatalogus.lezen();
+    }
+    
+    
+  
+    
+    public OpdrachtCatalogus getOpdrachtCatalogus(){
+    	return opdrachtCatalogus;
     }
     
 	@Override
@@ -56,5 +71,9 @@ public class TextDAOFacade implements DAOFacade {
 	public void voegOpdrachtToe(Opdracht opdracht) throws ReedsBestaandeOpdrachtException  {
 		opdrachtCatalogus.voegOpdrachtToe(opdracht);
 	}
-
+	
+	public int bepaalLaatsteQuizIDinCatalogus(){
+		int catlengte = quizCatalogus.getQuizen().size();
+		return quizCatalogus.getQuizen().get(catlengte-1).getQuizId();
+	}
 }

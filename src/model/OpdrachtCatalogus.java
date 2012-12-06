@@ -118,13 +118,13 @@ public class OpdrachtCatalogus extends FileContainer {
 			opdracht = new EenvoudigeOpdracht();
 			break;
 		case  MEERKEUZE :
-			opdracht = new EenvoudigeOpdracht();
+			opdracht = new Meerkeuze();
 			break;
 		case  OPSOMMING :
-			opdracht = new EenvoudigeOpdracht();
+			opdracht = new Opsomming();
 			break;
 		case  REPRODUCTIE :
-			opdracht = new EenvoudigeOpdracht();
+			opdracht = new Reproductie();
 			break;
 		default:
 			opdracht = null;

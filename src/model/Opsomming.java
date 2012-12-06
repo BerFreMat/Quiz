@@ -4,6 +4,10 @@ public class Opsomming  extends Opdracht implements Valideerbaar {
 
 	private boolean inJuisteVolgorde;
 	
+	public Opsomming(){
+		
+	}
+	
 	public Opsomming(String vraag, String juisteAntwoord, Leraar auteur,
 			OpdrachtCategorie categorie, boolean inJuisteVolgorde)
 	{
