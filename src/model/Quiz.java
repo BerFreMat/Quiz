@@ -456,13 +456,16 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 
 	public String formatteerLeerjaren(List<Leerjaar> leerjaren)
 	{	
-		String geformatteerdeLeerjaren = null;
+		String geformatteerdeLeerjaren ="";
 		if(leerjaren!= null)
 		{
 			for(Leerjaar leerjaar : leerjaren )
 			{
 				geformatteerdeLeerjaren += leerjaar.toString() + ";";
 			}
+		}
+		else{
+			geformatteerdeLeerjaren = null;
 		}
 		return geformatteerdeLeerjaren;
 	}

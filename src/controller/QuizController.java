@@ -20,12 +20,13 @@ public class QuizController {
 /*		OpdrachtCatalogus opdrachtCatalogus = new OpdrachtCatalogus();
 			opdrachtCatalogus.voegOpdrachtToe(opdracht1);
 			opdrachtCatalogus.voegOpdrachtToe(opdracht2);
-			QuizCatalogus quizCatalogus = new QuizCatalogus();
+			
 /*QuizCatalogus inlezen*/
-/*			quizCatalogus.lezen();			
+			QuizCatalogus quizCatalogus = new QuizCatalogus();
+			quizCatalogus.lezen();			
 			System.out.println(quizCatalogus);
-			System.out.println(quiz);			
-			quizCatalogus.voegQuizToe(quiz);
+			//System.out.println(quiz);			
+			//quizCatalogus.voegQuizToe(quiz);
 			
 /*Om consistentie tussen opdrachten en quizen te bewaren moet als de koppeling tussen een quiz en
  * een opdracht wordt gewijzigd steed quizCatalogus,opdrachtCatalogus,quiz en opdracht*/

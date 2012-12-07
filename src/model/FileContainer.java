@@ -60,7 +60,7 @@ public abstract class FileContainer {
 				String teSchrijvenLijn =  formatteerObject(obj);
 				if(teSchrijvenLijn != null)
 				{
-					schrijver.format("%s%n", teSchrijvenLijn);
+					schrijver.format("%s", teSchrijvenLijn);
 				}
 			}
 		} catch (SecurityException ex) {

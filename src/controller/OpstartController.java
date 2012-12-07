@@ -40,6 +40,7 @@ public class OpstartController {
 		
 	}
 	
+	//Maakt opdrachtencatalogus (lijst van opdrachten ingeladen uit TextDAOFacade) toegankelijk
 	public List<Opdracht> getOpdrachten(){
 		return opdrachtcatalogus;
 	}

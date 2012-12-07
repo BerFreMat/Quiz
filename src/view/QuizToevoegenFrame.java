@@ -167,7 +167,7 @@ public class QuizToevoegenFrame extends JFrame {
 		this.opdrachtenGeselecteerdList = new ArrayList<Opdracht>();
 		
 		getContentPane().setEnabled(false);
-		setBounds(100, 100, 752, 677);
+		setBounds(100, 100, 752, 900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
