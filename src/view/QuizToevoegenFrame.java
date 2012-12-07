@@ -49,7 +49,7 @@ public class QuizToevoegenFrame extends JFrame {
 	private DefaultListModel<Opdracht> listmodelAlleOpdrachten, listmodelToeTeVoegenOpdrachten;
 	private JList opdrachtenNogNietToegevoegdJList; //JList met opdrachten die nog kunnen worden toegevoegd
 	private JList opdrachtenReedsToegevoegdJList; //JList waarin de toe te voegen opdrachten komen
-	
+	private JTable opdrachtenReedsToegevoegdJTable; 
 
 	public QuizStatus getQuizStatus(){
 		return QuizStatus.valueOf(this.cmbxStatus.getSelectedItem().toString());
@@ -326,7 +326,11 @@ public class QuizToevoegenFrame extends JFrame {
 		opdrachtenReedsToegevoegdJList.setBounds(450, 400, 300, 300);
 		getContentPane().add(opdrachtenReedsToegevoegdJList);
 		
-
+		opdrachtenReedsToegevoegdJTable = new JTable();
+		opdrachtenReedsToegevoegdJTable.setVisible(true);
+		opdrachtenReedsToegevoegdJTable.setBounds(450, 800, 300, 300);
+		opdrachtenReedsToegevoegdJTable.setBackground(new Color(150));
+		getContentPane().add(opdrachtenReedsToegevoegdJTable);
 		
 		
 		//event handling

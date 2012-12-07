@@ -55,14 +55,32 @@ public abstract class FileContainer {
 			new File(getFile()).delete();
 			schrijver = new Formatter(new File(getFile()));
 			
-			// records schrijven
-			for (Object obj : teSchrijvenLijst()) {
-				String teSchrijvenLijn =  formatteerObject(obj);
-				if(teSchrijvenLijn != null)
+			// records schrijven - zorgen dat laatste lijn geen extra lege lijn toevoegt
+			int aantallijnen = teSchrijvenLijst().size();
+			List teschrvenlijst = teSchrijvenLijst();
+			for (int i=0; i< aantallijnen;i++)
+			{
+				String teSchrijvenLijn =  formatteerObject(teschrvenlijst.get(i));
+				if (i<aantallijnen-1)
+				{
+					schrijver.format("%s%n", teSchrijvenLijn);
+				}
+				else
 				{
 					schrijver.format("%s", teSchrijvenLijn);
 				}
 			}
+			
+			/**
+			for (Object obj : teSchrijvenLijst()) {
+				String teSchrijvenLijn =  formatteerObject(obj);
+				if(teSchrijvenLijn != null)
+				{
+					schrijver.format("%s%n", teSchrijvenLijn);
+				}
+			}
+			*/
+			
 		} catch (SecurityException ex) {
 			throw new Exception("Geen schrijftoegeang tot bestand");
 		} catch (FileNotFoundException ex) {
