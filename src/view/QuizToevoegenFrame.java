@@ -13,6 +13,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -29,26 +30,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.border.BevelBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.JTable;
+
+import utils.OpdrachtTableModel;
 
 public class QuizToevoegenFrame extends JFrame {
 
 	private OpstartController opstartcontroller;
 	private ToevoegenQuizController toevoegenquizcontroller;
 	
-	private JTextField txtOnderwerp;
+	private JTextField txtOnderwerp, txtTotaalMaxScore;
 
 	private JButton btnOpdrachtToevoegen, btnOpdrachtVerwijderen, btnAnnuleer,btnRegistreerQuiz, btnToonAlleOpdrachten;
 	private JComboBox cmbVan, cmbTot, cmbxStatus, cmbTypeFilter,cmbCategorieFilter, cmbAuteur;
 	
 	private Checkbox chbxTest, chbxUniekeDeelname;
 	
-	private List<Opdracht> alleopdrachtenList, opdrachtenGeselecteerdList;
+	private List<Opdracht> alleopdrachtenList, opdrachtenGeselecteerdList, opdrachtenbufferList;
 	
-	private DefaultListModel<Opdracht> listmodelAlleOpdrachten, listmodelToeTeVoegenOpdrachten;
+	private DefaultListModel<Opdracht> listmodelAlleOpdrachten,listmodelToeTeVoegenOpdrachten;
 	private JList opdrachtenNogNietToegevoegdJList; //JList met opdrachten die nog kunnen worden toegevoegd
 	private JList opdrachtenReedsToegevoegdJList; //JList waarin de toe te voegen opdrachten komen
+	private TableModel tablemodelToeTeVoegenOpdrachten;
 	private JTable opdrachtenReedsToegevoegdJTable; 
 
 	public QuizStatus getQuizStatus(){
@@ -67,7 +74,7 @@ public class QuizToevoegenFrame extends JFrame {
 	
 	//Toegankelijk maken van de lijst met geselecteerde opdrachten naar de buitenwereld
 	public List<Opdracht> getOpdrachtenGeselecteerdList() {
-		vulLijstGeselecteerdeOpdrachten();
+		//vulLijstGeselecteerdeOpdrachten();
 		return this.opdrachtenGeselecteerdList;
 	}
 
@@ -165,9 +172,10 @@ public class QuizToevoegenFrame extends JFrame {
 		
 		this.alleopdrachtenList = tvgenquizcntrller.getOpdrachtenLijst();
 		this.opdrachtenGeselecteerdList = new ArrayList<Opdracht>();
+		opdrachtenbufferList = new ArrayList<Opdracht>();
 		
 		getContentPane().setEnabled(false);
-		setBounds(100, 100, 752, 900);
+		setBounds(100, 100, 1050, 900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
@@ -326,31 +334,70 @@ public class QuizToevoegenFrame extends JFrame {
 		opdrachtenReedsToegevoegdJList.setBounds(450, 400, 300, 300);
 		getContentPane().add(opdrachtenReedsToegevoegdJList);
 		
-		opdrachtenReedsToegevoegdJTable = new JTable();
+		tablemodelToeTeVoegenOpdrachten = new OpdrachtTableModel(opdrachtenGeselecteerdList);
+		opdrachtenReedsToegevoegdJTable = new JTable(tablemodelToeTeVoegenOpdrachten);
+		//JTableHeader header = opdrachtenReedsToegevoegdJTable.getTableHeader();
+		
 		opdrachtenReedsToegevoegdJTable.setVisible(true);
-		opdrachtenReedsToegevoegdJTable.setBounds(450, 800, 300, 300);
-		opdrachtenReedsToegevoegdJTable.setBackground(new Color(150));
+		opdrachtenReedsToegevoegdJTable.setBounds(750, 400, 300, 300);
+		opdrachtenReedsToegevoegdJTable.setBackground(new Color(115));
 		getContentPane().add(opdrachtenReedsToegevoegdJTable);
 		
+		txtTotaalMaxScore = new JTextField();
+		txtTotaalMaxScore.setVisible(true);
+		txtTotaalMaxScore.setBounds(600,350,50,50);
+		getContentPane().add(txtTotaalMaxScore);
 		
-		//event handling
+		//Add Listeners for the Registreer and Annulatie button events
 		AddRemoveButtonHandler addremoveopdrHandler = new AddRemoveButtonHandler();
 		btnOpdrachtToevoegen.addActionListener(addremoveopdrHandler);
 		btnOpdrachtVerwijderen.addActionListener(addremoveopdrHandler);
 	
+		//Add txtTotaalMaxScore as Listener to tablemodelToeTeVoegenOpdrachten so it updates its total
+		TotalScoreChangeHandler scorehandler = new TotalScoreChangeHandler();
+		tablemodelToeTeVoegenOpdrachten.addTableModelListener(scorehandler);
 	}
 	
 	
 	//Vul een List met de geselecteerde opdrachten
-	private void vulLijstGeselecteerdeOpdrachten(){
+	/**private void vulLijstGeselecteerdeOpdrachten(){
 		int aantalopdr = this.listmodelToeTeVoegenOpdrachten.getSize();
 		for(int i=0;i<=aantalopdr-1;i++)
 		{
 			Opdracht nopdr = listmodelToeTeVoegenOpdrachten.get(i);
 			opdrachtenGeselecteerdList.add(nopdr);
 		}
-	}
+	}*/
 	
+	//inner class for handling change of total maxscore
+	private class TotalScoreChangeHandler implements TableModelListener{
+
+		@Override
+		public void tableChanged(TableModelEvent e) {
+	        if (e.getColumn()==4){ //check that the source is column 4 (MaxScore)
+				int row = e.getFirstRow();
+		        int column = e.getColumn();
+		        TableModel model = (TableModel)e.getSource();
+		        //String columnName = model.getColumnName(column);
+		        //Object data = model.getValueAt(row, column);
+		        int huidigtotaal=0;
+		        int cellwaarde =0;
+		        try{
+		        	for(int i=0;i<model.getRowCount();i++){ //recalculate the whole MaxScore by cycling through the rows
+		        		cellwaarde = Integer.parseInt(model.getValueAt(i, 4).toString());
+		        		huidigtotaal += cellwaarde;
+		        		}
+		        	}
+		        catch(Exception exc){
+		        	System.out.println(exc.getMessage());
+		        	}	        		        	
+		        
+		        txtTotaalMaxScore.setText(""+huidigtotaal);
+	        }
+			
+		}
+		
+	}
 	
 	//inner class for handling of '<' and '>' buttons
 			private class AddRemoveButtonHandler implements ActionListener
@@ -358,28 +405,44 @@ public class QuizToevoegenFrame extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					String string = ""; //string to be added or removed in either lists
 					
+					
+					//if the button was the one to add a opdracht ('>')
 					if(e.getSource()==btnOpdrachtToevoegen){
 						if(opdrachtenNogNietToegevoegdJList.getSelectedValue()!=null){
 							Opdracht opdr = (Opdracht)opdrachtenNogNietToegevoegdJList.getSelectedValue();
+							
+							
+							opdrachtenGeselecteerdList.add(opdr);
+							
 							listmodelToeTeVoegenOpdrachten.addElement(opdr);
 							listmodelAlleOpdrachten.removeElement(opdr);
+							((OpdrachtTableModel) tablemodelToeTeVoegenOpdrachten).opdrachtToevoegen(opdr);
+							
 						}
 						else
 						{
 							JOptionPane.showMessageDialog(null,"Gelieve een opdracht te selecteren","Geen selectie",JOptionPane.PLAIN_MESSAGE);
 						}
 					}
+					//if the button was the one to remove a opdracht ('<')
 					else if (e.getSource()==btnOpdrachtVerwijderen){
-						if(opdrachtenReedsToegevoegdJList.getSelectedValue()!=null){
+						if(opdrachtenReedsToegevoegdJList.getSelectedValue()!=null){ //working with the JList
 							Opdracht opdr = (Opdracht)opdrachtenReedsToegevoegdJList.getSelectedValue();
+							
+							opdrachtenGeselecteerdList.remove(opdr);
+							
 							listmodelAlleOpdrachten.addElement(opdr);
-							listmodelToeTeVoegenOpdrachten.removeElement(opdr);
+							listmodelToeTeVoegenOpdrachten.removeElement(opdr);		
 						}
-						else
-						{
+
+						else{
 							JOptionPane.showMessageDialog(null,"Gelieve een opdracht te selecteren","Geen selectie",JOptionPane.PLAIN_MESSAGE);
+						}
+						
+						if(opdrachtenReedsToegevoegdJTable.getSelectedRow()!=-1) {//working with the JTable
+							int selectedrow = opdrachtenReedsToegevoegdJTable.getSelectedRow();
+							((OpdrachtTableModel) tablemodelToeTeVoegenOpdrachten).opdrachtVerwijderen(selectedrow);
 						}
 					}
 				}

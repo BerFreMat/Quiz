@@ -17,6 +17,7 @@ public class OpstartController {
 	private List<Opdracht> opdrachtcatalogus; //beter een OpdrachtCatalogus return type voor daofacade?
 	
 	private ToevoegenQuizController toevoegenquizcontroller;
+	private SQLtestController sqltestcontroller;
 	
 	private JFrame toevoegenquizframe;
 	private Menu menu;
@@ -35,7 +36,7 @@ public class OpstartController {
 		opdrachtcatalogus = daofacade.getOpdrachten();
 		
 		//menu opstarten met de menukeuzes
-		menu = new Menu("Beheren van opdrachten","Beheren van quizzen/testen","Deelnemen aan quiz",
+		menu = new Menu("Beheren van opdrachten","TestSQLConnectie","Beheren van quizzen/testen","Deelnemen aan quiz",
 				"Overzicht scores","Quiz rapport","Instellingen van de quiz applicatie");
 		
 	}
@@ -50,8 +51,9 @@ public class OpstartController {
 		int keuze = menu.getMenuKeuze();
 		
 		switch(keuze){
-		case 1: toevoegenquizcontroller = new ToevoegenQuizController(daofacade, this);				
-
+		case 1: toevoegenquizcontroller = new ToevoegenQuizController(daofacade, this);		
+				break;
+		case 2: sqltestcontroller = new SQLtestController();
 				break;
 		default: 
 			if (keuze != menu.getStopWaarde()){
