@@ -13,12 +13,12 @@ public class ConnectieSQL {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String DB_URL = "jdbc:mysql://localhost/QuizDB";
+		String DB_URL = "jdbc:mysql://localhost/QuizDBGroep2";
 		
 		try{
 			Connection con = DriverManager.getConnection(DB_URL,"root","Nimbus2000");
 			Statement st = con.createStatement();
-			ResultSet res = st.executeQuery("select * from QuizDB.Quiz");
+			ResultSet res = st.executeQuery("select * from QuizDBGroep2.Quiz");
 			
 			while(res.next())
 			{

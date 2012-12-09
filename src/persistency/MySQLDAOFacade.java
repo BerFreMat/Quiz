@@ -51,7 +51,7 @@ public class MySQLDAOFacade implements DAOFacade {
 
 		
 		try{
-			Connection con = DriverManager.getConnection(DB_URL,"BerFreMat","v0etbal");
+			Connection con = DriverManager.getConnection(DB_URL,"root","Nimbus2000");
 			Statement st = con.createStatement();
 			ResultSet res = st.executeQuery("SELECT * FROM QuizDBGroep2.Opdracht INNER JOIN QuizDBGroep2.OpdrachtOpenVraag " +
 					"							ON QuizDBGroep2.Opdracht.OpdrachtID = QuizDBGroep2.OpdrachtOpenVraag.OpdrachtID ;");
@@ -59,9 +59,9 @@ public class MySQLDAOFacade implements DAOFacade {
 			while(res.next())
 			{
 				Opdracht nopdr;
-				int i = Integer.parseInt(res.getNString(4));
+				int i = Integer.parseInt(res.getString(5));
 				switch (i){
-				case 4: nopdr = new OpenVraag(res.getNString(1),res.getNString(6));
+				case 4: nopdr = new OpenVraag(res.getString(1),res.getString(6));
 						listopdracht.add(nopdr);
 						break;
 				default: 
