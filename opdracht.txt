@@ -1,2 +1,2 @@
-EENVOUDIGE_VRAAG#Wat is de hoofdstad van Franrijk?:Parijs:1:null:0:null:null:EENVOUDIGE_VRAAG:1::28/11/2012
-EENVOUDIGE_VRAAG#Wat is de hoodstad van Spanje?:Madrid:1:null:0:null:null:EENVOUDIGE_VRAAG:2::28/11/2012
+EENVOUDIGE_VRAAG#Wat is de hoofdstad van Franrijk?:Parijs:1:null:0:null:ALGEMEEN:EENVOUDIGE_VRAAG:1::28/11/2012
+EENVOUDIGE_VRAAG#Wat is de hoodstad van Spanje?:Madrid:1:null:0:null:ALGEMEEN:EENVOUDIGE_VRAAG:2::28/11/2012
