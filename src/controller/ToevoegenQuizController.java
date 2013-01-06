@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -32,7 +33,12 @@ public class ToevoegenQuizController {
 	 */
 	public ToevoegenQuizController(DAOFacade df, OpstartController opstartcontroller){
 		this.daofacade = df;
-		this.opdrachtenlijst = df.getOpdrachten();
+		try {
+			this.opdrachtenlijst = df.getOpdrachten();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		quiztoevoegenframe = new QuizToevoegenFrame(opstartcontroller, this);
 		quiztoevoegenframe.setVisible(true);
 		

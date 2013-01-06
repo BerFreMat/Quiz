@@ -136,21 +136,21 @@ public class QuizToevoegenFrame extends JFrame {
 		}
 	}
 	
-	private String[] zetListOpdrachtenOmNaarStringArrayVoorJList(List<Opdracht> lijstvanopdrachten) {
-		int aantalopdrachten = lijstvanopdrachten.size();
-		
-		String[] opdrlijst = new String[aantalopdrachten-1];
-		
-			for(int i=0;i<=aantalopdrachten;i++){
-				opdrlijst[i]= String.format("%3d",lijstvanopdrachten.get(i).getOpdrachtId()) +"\t" 
-						+ lijstvanopdrachten.get(i).getVraag().substring(0, 20) +"\t" 
-						+ lijstvanopdrachten.get(i).getCategorie().toString().substring(0, 8)+"\t" 
-						+ lijstvanopdrachten.get(i).getOpdrachtSoort().toString().substring(0,8) +"\n";	
-			}
-			
-			return opdrlijst;
-
-	}
+//	private String[] zetListOpdrachtenOmNaarStringArrayVoorJList(List<Opdracht> lijstvanopdrachten) {
+//		int aantalopdrachten = lijstvanopdrachten.size();
+//		
+//		String[] opdrlijst = new String[aantalopdrachten-1];
+//		
+//			for(int i=0;i<=aantalopdrachten;i++){
+//				opdrlijst[i]= String.format("%3d",lijstvanopdrachten.get(i).getOpdrachtId()) +"\t" 
+//						+ lijstvanopdrachten.get(i).getVraag().substring(0, 20) +"\t" 
+//						+ lijstvanopdrachten.get(i).getCategorie().toString().substring(0, 8)+"\t" 
+//						+ lijstvanopdrachten.get(i).getOpdrachtSoort().toString().substring(0,8) +"\n";	
+//			}
+//			
+//			return opdrlijst;
+//
+//	}
 	
 	
 	
@@ -298,22 +298,22 @@ public class QuizToevoegenFrame extends JFrame {
 		
 		
 		//Opdrachtenlijst omvormen naar een Array van Strings om in de lijst te gebruiken
-		List<Opdracht> lijstvanopdrachten = this.opstartcontroller.getOpdrachten();
-		int aantalopdrachten = lijstvanopdrachten.size();
-		
-		String[] opdrlijst = new String[aantalopdrachten];
-		try{		
-			for(int i=0;i<aantalopdrachten;i++){
-				opdrlijst[i]= String.format("%3d",lijstvanopdrachten.get(i).getOpdrachtId()) +"\t" 
-						+ lijstvanopdrachten.get(i).getVraag().substring(0, 20) +"\t" 
-						+ lijstvanopdrachten.get(i).getCategorie().toString().substring(0, 8)+"\t" 
-						+ lijstvanopdrachten.get(i).getOpdrachtSoort().toString().substring(0,8) +"\n";								
-				//System.out.printf(opdrlijst[i]);
-			}
-		}
-		catch(Exception exc){
-			System.out.println(exc.getMessage());
-		}
+//		List<Opdracht> lijstvanopdrachten = this.opstartcontroller.getOpdrachten();
+//		int aantalopdrachten = lijstvanopdrachten.size();
+//		
+//		String[] opdrlijst = new String[aantalopdrachten];
+//		try{		
+//			for(int i=0;i<aantalopdrachten;i++){
+//				opdrlijst[i]= String.format("%3d",lijstvanopdrachten.get(i).getOpdrachtId()) +"\t" 
+//						+ lijstvanopdrachten.get(i).getVraag().substring(0, 20) +"\t" 
+//						+ lijstvanopdrachten.get(i).getCategorie().toString().substring(0, 8)+"\t" 
+//						+ lijstvanopdrachten.get(i).getOpdrachtSoort().toString().substring(0,8) +"\n";								
+//				//System.out.printf(opdrlijst[i]);
+//			}
+//		}
+//		catch(Exception exc){
+//			System.out.println(exc.getMessage());
+//		}
 		
 		//JList tonen met opdrachten die kunnen worden toegevoegd
 		listmodelAlleOpdrachten = new DefaultListModel<Opdracht>();
@@ -417,7 +417,7 @@ public class QuizToevoegenFrame extends JFrame {
 							
 							listmodelToeTeVoegenOpdrachten.addElement(opdr);
 							listmodelAlleOpdrachten.removeElement(opdr);
-							((OpdrachtTableModel) tablemodelToeTeVoegenOpdrachten).opdrachtToevoegen(opdr);
+							//((OpdrachtTableModel) tablemodelToeTeVoegenOpdrachten).opdrachtToevoegen(opdr);
 							
 						}
 						else
@@ -440,10 +440,10 @@ public class QuizToevoegenFrame extends JFrame {
 							JOptionPane.showMessageDialog(null,"Gelieve een opdracht te selecteren","Geen selectie",JOptionPane.PLAIN_MESSAGE);
 						}
 						
-						if(opdrachtenReedsToegevoegdJTable.getSelectedRow()!=-1) {//working with the JTable
-							int selectedrow = opdrachtenReedsToegevoegdJTable.getSelectedRow();
-							((OpdrachtTableModel) tablemodelToeTeVoegenOpdrachten).opdrachtVerwijderen(selectedrow);
-						}
+//						if(opdrachtenReedsToegevoegdJTable.getSelectedRow()!=-1) {//working with the JTable
+//							int selectedrow = opdrachtenReedsToegevoegdJTable.getSelectedRow();
+//							((OpdrachtTableModel) tablemodelToeTeVoegenOpdrachten).opdrachtVerwijderen(selectedrow);
+//						}
 					}
 				}
 				

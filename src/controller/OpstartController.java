@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -33,7 +34,12 @@ public class OpstartController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		opdrachtcatalogus = daofacade.getOpdrachten();
+		try {
+			opdrachtcatalogus = daofacade.getOpdrachten();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//menu opstarten met de menukeuzes
 		menu = new Menu("Beheren van opdrachten","TestSQLConnectie","Beheren van quizzen/testen","Deelnemen aan quiz",

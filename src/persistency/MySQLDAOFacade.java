@@ -24,10 +24,12 @@ public class MySQLDAOFacade implements DAOFacade {
 	 */
 	public MySQLDAOFacade(){
 
+		/** testing the connection
 		String DB_URL = "jdbc:mysql://localhost/QuizDBGroep2";
+		Connection con = DriverManager.getConnection(DB_URL,"root","Nimbus2000");
 		
 		try{
-			Connection con = DriverManager.getConnection(DB_URL,"root","Nimbus2000");
+			
 			Statement st = con.createStatement();
 			ResultSet res = st.executeQuery("SELECT * FROM QuizDBGroep2.OpdrachtCategorie;");
 			
@@ -39,19 +41,19 @@ public class MySQLDAOFacade implements DAOFacade {
 		catch(SQLException sqlexc){
 			System.out.println(sqlexc.getMessage());
 		}
-
-		
+		*/
+	
 	}
 	
 	
 	@Override
-	public List<Opdracht> getOpdrachten() {
+	public List<Opdracht> getOpdrachten() throws SQLException {
 		String DB_URL = "jdbc:mysql://localhost/QuizDBGroep2";
 		List<Opdracht> listopdracht = new ArrayList<Opdracht>();
-
+		Connection con = DriverManager.getConnection(DB_URL,"root","Nimbus2000");
 		
 		try{
-			Connection con = DriverManager.getConnection(DB_URL,"root","Nimbus2000");
+			
 			Statement st = con.createStatement();
 			ResultSet res = st.executeQuery("SELECT * FROM QuizDBGroep2.Opdracht INNER JOIN QuizDBGroep2.OpdrachtOpenVraag " +
 					"							ON QuizDBGroep2.Opdracht.OpdrachtID = QuizDBGroep2.OpdrachtOpenVraag.OpdrachtID ;");
@@ -66,10 +68,8 @@ public class MySQLDAOFacade implements DAOFacade {
 						break;
 				default: 
 						break;
-					
 				}
 
-				
 			}
 			
 			
@@ -77,7 +77,9 @@ public class MySQLDAOFacade implements DAOFacade {
 		catch(SQLException sqlexc){
 			System.out.println(sqlexc.getMessage());
 		}
-		
+		finally{
+			con.close();
+		}
 		return listopdracht;
 	}
 

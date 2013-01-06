@@ -1,7 +1,12 @@
-1:Hoofdsteden Europa quiz 1::false:false:IN_CONSTRUCTIE:null::5/1/2013
-2:Hoofdsteden Europa quiz 2::false:false:IN_CONSTRUCTIE:null::5/1/2013
-3:Hoofdsteden Europa quiz 3::false:false:IN_CONSTRUCTIE:null::5/1/2013
-4:Hoofdsteden Europa quiz 4::false:false:IN_CONSTRUCTIE:null::5/1/2013
-5:Hoofdsteden Europa quiz 5::false:false:IN_CONSTRUCTIE:null::5/1/2013
-6:Hoofdsteden Europa quiz 6::false:false:IN_CONSTRUCTIE:null::5/1/2013
-7:Test of TextDaoFacade quiz toevoegd aan QuizCatalogus::false:false:IN_CONSTRUCTIE:null::5/1/2013
+1:Hoofdsteden Europa quiz 1::false:false:IN_CONSTRUCTIE:null::17/12/2012
+2:Hoofdsteden Europa quiz 2::false:false:IN_CONSTRUCTIE:null::17/12/2012
+3:Hoofdsteden Europa quiz 3::false:false:IN_CONSTRUCTIE:null::17/12/2012
+4:Hoofdsteden Europa quiz 4::false:false:IN_CONSTRUCTIE:null::17/12/2012
+5:Hoofdsteden Europa quiz 5::false:false:IN_CONSTRUCTIE:null::17/12/2012
+6:Hoofdsteden Europa quiz 6::false:false:IN_CONSTRUCTIE:null::17/12/2012
+7:Test of TextDaoFacade quiz toevoegd aan QuizCatalogus::false:false:IN_CONSTRUCTIE:null::17/12/2012
+8:fgsdfg::false:false:IN_CONSTRUCTIE:Bart::17/12/2012
+9:dsfgsdfg::false:false:AFGEWERKT:Stijn::17/12/2012
+10:dfgfdsg:LEERJAAR1;:false:false:IN_CONSTRUCTIE:Stijn::17/12/2012
+11:tehdfgh:LEERJAAR1;LEERJAAR2;:false:false:LAATSTE_KANS:Kristel:11 2 2;:17/12/2012
+12::LEERJAAR1;:false:false:IN_CONSTRUCTIE:Bart:12 3 2;:17/12/2012

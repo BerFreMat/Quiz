@@ -10,6 +10,8 @@ import model.Opdracht;
 import model.OpdrachtCategorie;
 import model.OpdrachtSoort;
 
+import exceptions.*;
+
 public class OpdrachtTableModel extends DefaultTableModel {
 
 	private String[] columnnames;
@@ -42,7 +44,7 @@ public class OpdrachtTableModel extends DefaultTableModel {
 		}
 
 	
-	public void opdrachtToevoegen(Opdracht opd){
+	public void opdrachtToevoegen(Opdracht opd) throws OpdrachtNietToegevoegdException{
 		
 		opdrachtenlijst.add(opd);
 		

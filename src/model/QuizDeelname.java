@@ -76,6 +76,12 @@ public class QuizDeelname {
 		return feedback;
 	}
 	
+
+	public String getQuizRapport() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 	

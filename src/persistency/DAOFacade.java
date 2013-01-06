@@ -3,6 +3,7 @@
  */
 package persistency;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import model.Opdracht;
@@ -21,7 +22,7 @@ import exceptions.ReedsBestaandeQuizException;
  */
 public interface DAOFacade {
 	
-	public List<Opdracht> getOpdrachten();
+	public List<Opdracht> getOpdrachten() throws SQLException;
 	public List<Opdracht> getOpdrVanType(OpdrachtSoort opdrachtsoort);
 	public List<Opdracht> getOpdrVanCategorie(OpdrachtCategorie opdrachtCategorie);
 	public void schrijfWeg() throws Exception;
