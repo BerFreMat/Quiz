@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * Subclass van Opdracht en implementeer de interface Valideerbaar
+ * Maakt een opdracht met meerkeuzen Subclass van Opdracht en implementeer de interface Valideerbaar
  * @author java
  *
  */
