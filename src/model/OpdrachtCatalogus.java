@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package model;
 import model.*;
 
@@ -13,6 +11,7 @@ import exceptions.OpdrachtNietGevondenException;
 import exceptions.ReedsBestaandeOpdrachtException;
 
 /**
+ * Genereer opdrachten subclass van abstract class FileContainer
  * @author java
  *
  */
@@ -20,7 +19,8 @@ public class OpdrachtCatalogus extends FileContainer {
 	private ArrayList<Opdracht> opdrachten;
 
 	/**
-	 * @return the opdrachten
+	 * List van opdrachten in een array
+	 * @return
 	 */
 	public ArrayList<Opdracht> getOpdrachten() {
 		return opdrachten;
@@ -29,13 +29,15 @@ public class OpdrachtCatalogus extends FileContainer {
 		super();
 		opdrachten = new ArrayList<Opdracht>();
 	}
-	/**
-	 * @param opdrachten the opdrachten to set
-	 */
+	
 	private void setopdrachten(ArrayList<Opdracht> opdrachten) {
 		this.opdrachten = opdrachten;
 	}
-	
+	/**
+	 * Voeg Opdrachten toe
+	 * @param opdracht
+	 * @throws ReedsBestaandeOpdrachtException
+	 */
 	public void voegOpdrachtToe(Opdracht opdracht) throws ReedsBestaandeOpdrachtException 
 	{
 		int positieOpdracht = opdrachten.indexOf(opdracht);
@@ -48,11 +50,14 @@ public class OpdrachtCatalogus extends FileContainer {
 			opdrachten.add(opdracht);
 		}
 	}
-	
+	/**
+	 *contains(Object elem)  gebruiken om na te kijken of een opdracht een QuizOpdracht is.
+	 *voorlopig zonder QuizCatalogus. ==> pas aangewezen als er persistentie is toegevoegd.
+	 * @param opdracht
+	 * @throws OpdrachtNietGevondenException
+	 */
 	public void verwijderOpdracht(Opdracht opdracht) throws OpdrachtNietGevondenException
 	{
-		//contains(Object elem)  gebruiken om na te kijken of een opdracht een QuizOpdracht is.
-		//Voorlopig zonder QuizCatalogus. ==> pas aangewezen als er persistentie is toegevoegd.
 		int positieOpdracht = opdrachten.indexOf(opdracht);
 		
 		if(positieOpdracht < 0){

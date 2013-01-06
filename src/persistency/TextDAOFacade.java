@@ -34,9 +34,7 @@ public class TextDAOFacade implements DAOFacade {
     	this.opdrachtCatalogus.lezen();
     }
     
-    
-  
-    
+        
     public OpdrachtCatalogus getOpdrachtCatalogus(){
     	return opdrachtCatalogus;
     }

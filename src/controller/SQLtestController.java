@@ -9,6 +9,11 @@ import model.Opdracht;
 import persistency.*;
 import view.*;
 
+/**
+ * Class SQLtestController check List<Opdracht> listopdr naar de sqldao facade
+ * @author java
+ *
+ */
 public class SQLtestController {
 
 	private DAOFacade sqldaofacade;

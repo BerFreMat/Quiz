@@ -2,6 +2,11 @@ package model;
 import java.io.*;
 import java.util.Formatter;
 import java.util.List;
+/**
+ * File container schrijf opdrachten in lokaal bestand
+ * @author java
+ *
+ */
 
 
 public abstract class FileContainer {
@@ -46,16 +51,18 @@ public abstract class FileContainer {
 			throw(ex);
 		}
 	}
-	
+	/**
+	 * open file, records schrijven, zorgt dat laatste lijn geen extra lege lijn toevoegd
+	 * en sluit schrijver
+	 * @throws Exception
+	 */
 	public void schrijfNaarBestand() throws Exception {
 		Formatter schrijver = null;
 
 		try {
-			// open file
 			new File(getFile()).delete();
 			schrijver = new Formatter(new File(getFile()));
 			
-			// records schrijven - zorgen dat laatste lijn geen extra lege lijn toevoegt
 			int aantallijnen = teSchrijvenLijst().size();
 			List teschrvenlijst = teSchrijvenLijst();
 			for (int i=0; i< aantallijnen;i++)
@@ -71,7 +78,7 @@ public abstract class FileContainer {
 				}
 			}
 			
-			/**
+			/*
 			for (Object obj : teSchrijvenLijst()) {
 				String teSchrijvenLijn =  formatteerObject(obj);
 				if(teSchrijvenLijn != null)
@@ -86,12 +93,10 @@ public abstract class FileContainer {
 		} catch (FileNotFoundException ex) {
 			throw new Exception("Kan bestand niet openen");
 		} finally {
-			// sluit schrijver
+		
 			if (schrijver != null){
 				schrijver.close();
 			}
 		}
 	}
-	
-
 }

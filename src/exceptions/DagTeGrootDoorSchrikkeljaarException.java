@@ -1,6 +1,10 @@
 package exceptions;
 
-
+/**
+ * SchrikkeljaarException
+ * @author java
+ *
+ */
 @SuppressWarnings("serial")
 public class DagTeGrootDoorSchrikkeljaarException extends DagException {
 	public DagTeGrootDoorSchrikkeljaarException() {

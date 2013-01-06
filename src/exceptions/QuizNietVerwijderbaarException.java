@@ -1,5 +1,9 @@
 package exceptions;
-
+/**
+ * Quiz Niet Verwijderbaar Exception
+ * @author java
+ *
+ */
 @SuppressWarnings("serial")
 public class QuizNietVerwijderbaarException extends QuizCatalogusException {
 	public QuizNietVerwijderbaarException(String msg) {

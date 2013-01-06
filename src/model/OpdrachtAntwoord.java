@@ -1,4 +1,10 @@
 package model;
+/**
+ * Geeft feedback over: quizOpdracht, toonOplossing, laatste antwoord 
+ * en antwoord tijd
+ * @author java
+ *
+ */
 
 public class OpdrachtAntwoord {
 	private String laatsteAntwoord;
@@ -7,63 +13,67 @@ public class OpdrachtAntwoord {
 	private QuizOpdracht quizOpdracht;
 	
 	/**
-	 * @return the quizOpdracht
+	 * quiz opdracht
+	 * @return 
 	 */
 	public QuizOpdracht getQuizOpdracht() {
 		return quizOpdracht;
 	}
 	/**
-	 * @param quizOpdracht the quizOpdracht to set
+	 * quiz opdracht set
+	 * @param 
 	 */
 	public void setQuizOpdracht(QuizOpdracht quizOpdracht) {
 		this.quizOpdracht = quizOpdracht;
 	}
 	/**
-	 * @return the laatsteAntwoord
+	 * laatste antwoord
+	 * @return 
 	 */
 	public String getLaatsteAntwoord() {
 		return laatsteAntwoord;
 	}
 	/**
-	 * @param laatsteAntwoord the laatsteAntwoord to set
+	 * laatste antwoord van een opdracht
+	 * @param 
 	 */
 	public void setLaatsteAntwoord(String laatsteAntwoord) {
 		this.laatsteAntwoord = laatsteAntwoord;
 	}
 	/**
-	 * @return the aantalPogingen
+	 * aantal pogingen voor een antwoord
+	 * @return 
 	 */
 	public int getAantalPogingen() {
 		return aantalPogingen;
 	}
 	/**
-	 * @param aantalPogingen the aantalPogingen to set
+	 * aantal pogingen voor antwoord
+	 * @param 
 	 */
 	public void setAantalPogingen(int aantalPogingen) {
 		this.aantalPogingen = aantalPogingen;
 	}
-	/**
-	 * @return the antwoordTijd
-	 */
+	
 	public int getAntwoordTijd() {
 		return antwoordTijd;
 	}
 	/**
-	 * @param antwoordTijd the antwoordTijd to set
+	 * Tijd voor antwoord
+	 * @param
 	 */
 	public void setAntwoordTijd(int antwoordTijd) {
 		this.antwoordTijd = antwoordTijd;
 	}
+	
 	public OpdrachtAntwoord() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public String feedback(OpdrachtCatalogus opdrachtCatalogus){
 		return opdrachtCatalogus.getOpdracht(quizOpdracht).toonOplossing() + 
-				"laatste Antwoord : " + laatsteAntwoord +
-				"antwoordTijd : "+ antwoordTijd ;
-	}
-	
-	
+				"Laatste Antwoord : " + laatsteAntwoord +
+				"Antwoord Tijd : "+ antwoordTijd ;
+	}	
 }

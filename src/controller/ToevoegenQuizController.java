@@ -17,7 +17,11 @@ import view.QuizToevoegenFrame;
 
 import exceptions.ReedsBestaandeQuizException;
 import model.*;
-
+/**
+ * Controleer toe te voegen opdrachten aan DAO en OpstartController
+ * @author java
+ *
+ */
 public class ToevoegenQuizController {
 
 	private DAOFacade daofacade;
@@ -36,13 +40,14 @@ public class ToevoegenQuizController {
 		try {
 			this.opdrachtenlijst = df.getOpdrachten();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		quiztoevoegenframe = new QuizToevoegenFrame(opstartcontroller, this);
 		quiztoevoegenframe.setVisible(true);
 		
-		//add actionlistener for clicking button QuizToevoegen
+		/**
+		 * add actionlistener for clicking button QuizToevoegen
+		 */
 		RegistreerQuizClickHandler handler = new RegistreerQuizClickHandler();
 		quiztoevoegenframe.getBtnRegistreerQuiz().addActionListener(handler);
 		
@@ -120,7 +125,4 @@ public class ToevoegenQuizController {
 	public List<Opdracht> getOpdrachtenLijst(){
 		return this.opdrachtenlijst;
 	}
-		
-
-
 }

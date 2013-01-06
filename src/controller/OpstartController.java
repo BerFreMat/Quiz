@@ -10,12 +10,16 @@ import persistency.TextDAOFacade;
 
 import model.*;
 import view.*;
-
+/**
+ * Controller class voor DAO en catalogus
+ * @author java
+ *
+ */
 
 public class OpstartController {
 
 	private DAOFacade daofacade;
-	private List<Opdracht> opdrachtcatalogus; //beter een OpdrachtCatalogus return type voor daofacade?
+	private List<Opdracht> opdrachtcatalogus;
 	
 	private ToevoegenQuizController toevoegenquizcontroller;
 	private SQLtestController sqltestcontroller;
@@ -23,36 +27,44 @@ public class OpstartController {
 	private JFrame toevoegenquizframe;
 	private Menu menu;
 	
-	
+	/**
+	 * Constructor OpstartController, leest DAO, opdracht catalogus
+	 */
 	public OpstartController(){
 		
-		
-		//inlezen daofacade
 		try {
 			daofacade = new TextDAOFacade();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		try {
 			opdrachtcatalogus = daofacade.getOpdrachten();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
-		//menu opstarten met de menukeuzes
+		/**
+		 * menu opstarten met de menukeuzes
+		 */
 		menu = new Menu("Beheren van opdrachten","TestSQLConnectie","Beheren van quizzen/testen","Deelnemen aan quiz",
 				"Overzicht scores","Quiz rapport","Instellingen van de quiz applicatie");
 		
 	}
 	
-	//Maakt opdrachtencatalogus (lijst van opdrachten ingeladen uit TextDAOFacade) toegankelijk
+	/**
+	 * Maakt opdrachtencatalogus (lijst van opdrachten ingeladen uit TextDAOFacade) toegankelijk
+	 * @return
+	 */
+	
 	public List<Opdracht> getOpdrachten(){
 		return opdrachtcatalogus;
 	}
 	
-	
+	/**
+	 * Menu opties
+	 */
 	public void execute(){
 		int keuze = menu.getMenuKeuze();
 		

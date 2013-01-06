@@ -4,6 +4,7 @@
 package model;
 
 /**
+ * Class voor leerling naam, geeft naam en leerjaar
  * @author java
  *
  */
@@ -11,28 +12,21 @@ public class Leerling {
 	private String leerlingNaam;
 	private int leerJaar;
 	/**
-	 * @return the leerlingNaam
+	 * @return
 	 */
 	public String getLeerlingNaam() {
 		return leerlingNaam;
 	}
-	/**
-	 * @param leerlingNaam the leerlingNaam to set
-	 */
+	
 	public void setLeerlingNaam(String leerlingNaam) {
 		this.leerlingNaam = leerlingNaam;
 	}
-	/**
-	 * @return 
-	 * @return the leerjaar
-	 */
+	
 	public int  getLeerjaar() {
 		
 		return leerJaar;
 	}
-	/**
-	 * @param leerjaar the leerjaar to set
-	 */
+	
 	public void setLeerjaar(int leerJaar) {
 		this.leerJaar = leerJaar;
 	}
@@ -64,18 +58,13 @@ public class Leerling {
 			return false;
 		return true;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#clone()
-	 */
+	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
+		
 		return super.clone();
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
+	
 	public String toString() {
 		return "Leerling [leerlingNaam=" + leerlingNaam + ", leerjaar="
 				+ leerJaar + "]";

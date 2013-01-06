@@ -12,7 +12,11 @@ import exceptions.DatumStringException;
 import exceptions.MaandException;
 
 import utils.Datum;
-
+/**
+ * Test class voor Datum
+ * @author java
+ *
+ */
 public class DatumTest {
 	
 

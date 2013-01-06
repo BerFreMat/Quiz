@@ -1,5 +1,9 @@
 package model;
-
+/**
+ * Enum class van leerjaren van 1 tot 6
+ * @author java
+ *
+ */
 public enum Leerjaar {
 	LEERJAAR1("Eerste leerjaar",1),
 	LEERJAAR2("Tweede leerjaar",2),

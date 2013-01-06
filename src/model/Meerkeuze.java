@@ -2,7 +2,11 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Subclass van Opdracht en implementeer de interface Valideerbaar
+ * @author java
+ *
+ */
 public class Meerkeuze  extends Opdracht implements Valideerbaar {
 
 	private List<String> keuzen;

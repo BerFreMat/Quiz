@@ -1,5 +1,9 @@
 package exceptions;
-
+/**
+ * Reeds Bestaande Opdracht Exception
+ * @author java
+ *
+ */
 @SuppressWarnings("serial")
 public class ReedsBestaandeOpdrachtException  extends OpdrachtCatalogusException{
 	public ReedsBestaandeOpdrachtException() {

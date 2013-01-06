@@ -2,6 +2,12 @@ package controller;
 import persistency.DAOFacade;
 import persistency.TextDAOFacade;
 import model.*;
+
+/**
+ * Class QuizController met opdrachten
+ * @author java
+ *
+ */
 public class QuizController {
 	
 	public static void main(String[] args) {
