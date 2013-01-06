@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package model;
 
 import java.util.ArrayList;
@@ -17,32 +15,33 @@ import exceptions.ReedsBestaandeQuizException;
 import DatumGregorian.Datum;
 
 /**
+ * Beheer van quizzen subclass van abstact FileContainer
  * @author java
  *
  */
 public class QuizCatalogus extends FileContainer {
 	
 	private List<Quiz> quizen;
-
+/**
+ * default constructor en maakt arraylist Quiz
+ */
 	public QuizCatalogus() {
 		super();
 		this.quizen = new ArrayList<Quiz>();
 	}
 
-	/**
-	 * @return the quizen
-	 */
 	public List<Quiz> getQuizen() {
 		return quizen;
 	}
 
-	/**
-	 * @param quizen the quizen to set
-	 */
 	public void setQuizen(ArrayList<Quiz> quizen) {
 		this.quizen = quizen;
 	}
-	
+/**
+ * 	Voeg Quiz Toe set datum registratie en quizId
+ * @param quiz
+ * @throws ReedsBestaandeQuizException
+ */
 	public void voegQuizToe(Quiz quiz) throws ReedsBestaandeQuizException
 	{
 		quiz.setDatumRegistratie(new Datum());
@@ -58,6 +57,12 @@ public class QuizCatalogus extends FileContainer {
 			quizen.add(quiz);
 		}
 	}
+	/**
+	 * Verwijderd quiz, check als quiz is in status (IN_CONSTRUCTIE of AFGEWERKT)
+	 * @param quiz
+	 * @throws QuizNietVerwijderbaarException
+	 * @throws QuizNietGevondenException
+	 */
 	public void verwijderQuiz(Quiz quiz) throws QuizNietVerwijderbaarException, QuizNietGevondenException
 	{
 		int positieQuiz = quizen.indexOf(quiz);
@@ -76,6 +81,12 @@ public class QuizCatalogus extends FileContainer {
 			}
 		}
 	}
+	/**
+	 * Wijzig Quiz, check als Quiz status IN_CONSTRUCTIE is
+	 * @param quiz
+	 * @throws QuizNietWijzigbaarException
+	 * @throws QuizNietGevondenException
+	 */
 	
 	public void wijzigQuiz(Quiz quiz) throws QuizNietWijzigbaarException, QuizNietGevondenException
 	{
@@ -100,7 +111,10 @@ public class QuizCatalogus extends FileContainer {
 	public String toString() {
 		return "QuizCatalogus [quizen=" + quizen + "]";
 	}
-
+/**
+ * Zoek in lijst de OPENGESTELD quizzen
+ * @return
+ */
 	public ArrayList<Quiz> opengesteldeQuizen()
 	{
 		ArrayList<Quiz> opengesteldeQuizen = new ArrayList<Quiz>();
@@ -114,13 +128,14 @@ public class QuizCatalogus extends FileContainer {
 		}		
 		return opengesteldeQuizen;
 	}
-
+/**
+ * Haalt string uit bestand met naam: "quiz.txt"
+ */
 	@Override
 	public String getFile() {
-		// TODO Auto-generated method stub
+		
 		return "quiz.txt";
 	}
-
 	@Override
 	public void deformatteerLijn(String lijn) throws Exception {
 		Quiz quiz = new Quiz();
@@ -163,7 +178,10 @@ public class QuizCatalogus extends FileContainer {
 			return null;
 		}
 	}
-		
+		/**
+		 * Verwijderd opdracht uit quiz
+		 * @param quizOpdracht
+		 */
 	public void verwijderQuizOpdracht(QuizOpdracht quizOpdracht) {
 		for(Quiz quiz : quizen)
 		{

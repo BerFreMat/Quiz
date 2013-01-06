@@ -1,13 +1,26 @@
 package model;
-
+/**
+ * Sorteer opdracht in juiste volgorde, subclass van Opdracht en implementeer interface Valideerbaar
+ * @author java
+ *
+ */
 public class Opsomming  extends Opdracht implements Valideerbaar {
 
 	private boolean inJuisteVolgorde;
-	
+	/**
+	 * generieke constructor
+	 */
 	public Opsomming(){
 		
 	}
-	
+	/**
+	 * overloaded constructor1 met vraag, juiste antwoord, auteur en categorie
+	 * @param vraag
+	 * @param juisteAntwoord
+	 * @param auteur
+	 * @param categorie
+	 * @param inJuisteVolgorde
+	 */
 	public Opsomming(String vraag, String juisteAntwoord, Leraar auteur,
 			OpdrachtCategorie categorie, boolean inJuisteVolgorde)
 	{
@@ -45,6 +58,4 @@ public class Opsomming  extends Opdracht implements Valideerbaar {
 	public String getValideerTekst() {
 		return "Typ je antwoorden achter elkaar gescheiden door ;";
 	}
-	
-
 }

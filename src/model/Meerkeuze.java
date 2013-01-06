@@ -3,7 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * Maakt een opdracht met meerkeuzen Subclass van Opdracht en implementeer de interface Valideerbaar
+ * Maakt meerkeuzevragen Subclass van Opdracht 
+ * en implementeer de interface Valideerbaar
  * @author java
  *
  */
@@ -46,7 +47,7 @@ public class Meerkeuze  extends Opdracht implements Valideerbaar {
 
 	@Override
 	public boolean isValide(String antwoord) {
-		// TODO Auto-generated method stub
+		
 		try
 		{
 			int keuze;
@@ -86,7 +87,10 @@ public class Meerkeuze  extends Opdracht implements Valideerbaar {
 	public String getValideerTekst() {
 		return String.format("Geef je keuze door een getal in te geven tussen 1 en %d", keuzen.size())  ;		
 	}
-	
+	/**
+	 * Format keuzen met ";" als split teken
+	 * @return
+	 */
 	
 	private String formatteerKeuzen() {
 		
@@ -103,7 +107,11 @@ public class Meerkeuze  extends Opdracht implements Valideerbaar {
 			return "null";
 		}
 	}
-	
+	/**
+	 * Deformateer keuzen in array 
+	 * @param keuzen
+	 * @return
+	 */
 	private ArrayList<String> deformatteerKeuzen(String keuzen)  {
 		if (!keuzen.equals("null"))
 		{

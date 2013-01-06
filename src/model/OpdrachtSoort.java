@@ -1,9 +1,8 @@
-/**
- * 
- */
+
 package model;
 
 /**
+ * Enum soorten opdrachten
  * @author java
  *
  */

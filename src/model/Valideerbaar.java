@@ -1,9 +1,8 @@
-/**
- * 
- */
+
 package model;
 
 /**
+ * Interface voor verschillende soorten van vragen
  * @author java
  *
  */

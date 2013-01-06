@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package model;
 
 import java.util.ArrayList;
@@ -23,7 +21,9 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 
 	}
 	
-	//Attributen
+	/**
+	 * Attributen
+	 */
 	private int quizId;
 	private String  onderwerp;
 	private boolean isTest;
@@ -34,8 +34,8 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 	private DatumGregorian.Datum datumRegistratie;
 	public List<Leerjaar> leerjaren;
 	
-	//Constructor
 	/**
+	 * Constructor
 	 * @param onderwerp van de quiz          
 	 */
 	public Quiz (String onderwerp){
@@ -113,8 +113,11 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 		return opdrachten;
 	}
 	
-	//Getters
-	//
+	
+	/**
+	 * Get opdrachten uit lijst QuizOpdracht
+	 * @return
+	 */
 	public int[] getOpdrachten(){
 		int[] opdrachten = new int[quizOpdrachten.size()];
 		for (int i= 0; i< quizOpdrachten.size(); i++)
@@ -140,28 +143,24 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 	public int getQuizId() {
 		return quizId;
 	}
-	/**
-	 * @return the quizStatus
-	 */
+	
 	public QuizStatus getQuizStatus() {
 		return quizStatus;
 	}
-	/**
-	 * @return the auteur
-	 */
+	
 	public Leraar getAuteur() {
 		return auteur;
 	}
-	/**
-	 * @return the datumRegistratie
-	 */
+	
 	public DatumGregorian.Datum getDatumRegistratie() {
 		return datumRegistratie;
 	}
 	
-	//Setters
-	//
 	
+	/**
+	 * Set lijst QuizOpdrachten
+	 * @param quizOpdrachten
+	 */
 	public void setQuizOpdrachten(List<QuizOpdracht> quizOpdrachten) {
 		this.quizOpdrachten = quizOpdrachten;
 	}
@@ -169,9 +168,7 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 	public void setQuizId(int quizId) {
 		this.quizId = quizId;
 	}
-	/**
-	 * @param quizStatus the quizStatus to set
-	 */
+	
 	public void setQuizStatus(QuizStatus quizStatus) {
 		this.quizStatus = quizStatus;
 	}
@@ -180,63 +177,46 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 		this.onderwerp = onderwerp;
 	}
 	/**
-	 * @return the isTest
+	 * Set opdracht als test
+	 * @return
 	 */
 	public boolean isTest() {
 		return isTest;
 	}
-	/**
-	 * @param isTest the isTest to set
-	 */
+	
 	public void setTest(boolean isTest) {
 		this.isTest = isTest;
 	}
 	/**
-	 * @return the isUniekeDeelname
+	 * Set opdracht als unieke deelname
+	 * @return
 	 */
 	public boolean isUniekeDeelname() {
 		return isUniekeDeelname;
 	}
-	/**
-	 * @param isUniekeDeelname the isUniekeDeelname to set
-	 */
+	
 	public void setUniekeDeelname(boolean isUniekeDeelname) {
 		this.isUniekeDeelname = isUniekeDeelname;
 	}
 
-	/**
-	 * @param auteur the auteur to set
-	 */
 	public void setAuteur(Leraar auteur) {
 		this.auteur = auteur;
 	}
 
-	/**
-	 * @param datum the datumRegistratie to set
-	 */
 	public void setDatumRegistratie(DatumGregorian.Datum datum) {
 		this.datumRegistratie = datum;
 	}
 
-	/**
-	 * @param leerjaren the leerjaren to set
-	 */
 	public void setLeerjaren(ArrayList<Leerjaar> leerjaren) {
 		controlLeerjaar(leerjaren);
 		this.leerjaren = leerjaren;
 	}
 	
-	//
-	// Methodes
-	//
-	
 	/**
-	 * control geldige waarde min 1 en max 6
+	 * Control leerjaar geldige waarde min 1 en max 6
 	 * 
-	 * @param leerJaar waarde te controleren
-	 * 
-	 * @return leerjaar geeft waarde van leerjaar terug als het correct is
-	 * 
+	 * @param 
+	 * @return 
 	 * @author 
 	 */
 	
@@ -249,7 +229,10 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 			}
 		}
 	}
-
+/**
+ * Check status quiz
+ * @return
+ */
 	public boolean isWijzigbaar()
 	{
 		if (this.quizStatus == QuizStatus.IN_CONSTRUCTIE)
@@ -285,11 +268,8 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 		}
 	}
 	
-	//
-	//Override String-methode
-	//
-
 	/**
+	 * Override String-methode
 	 * Comparator Class is innerclass 't wordt gebruikt door Quiz class
 	 * quizen gerangschikt op aantal opdrachten en opdrachten alfabetisch
 	 * @return
@@ -383,19 +363,6 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 	public List<QuizOpdracht> getQuizOpdrachten(){		
 		return  quizOpdrachten;
 	}
-	
-	
-	/*
-	@Override
-	public String toString() {
-		return "Quiz [quizId=" + quizId + ", onderwerp=" + onderwerp
-				+ ", leerjaren=" + leerJaar + ", isTest=" + isTest
-				+ ", isUniekeDeelname=" + isUniekeDeelname + ", quizStatus="
-				+ quizStatus + ", auteur=" + auteur + ", quizOpdrachten="
-				+ quizOpdrachten + ", datumRegistratie=" + datumRegistratie
-				+ "]";
-	}*/
-
 
 	@Override
 	public void maakObjectVanString(String lijn) throws Exception {
@@ -482,7 +449,7 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 		return leerjarenLijst;
 	}	
 	private Leraar deformatteerAuteur(String auteur) {
-		// TODO Auto-generated method stub
+		
 		if(!auteur.equals("null"))
 		{
 			return Leraar.valueOf(auteur);
@@ -492,6 +459,4 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 			return null;
 		}
 	}
-	
-
 }

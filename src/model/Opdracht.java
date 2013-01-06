@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package model;
 
 import java.util.ArrayList;
@@ -9,6 +7,8 @@ import java.util.List;
 import DatumGregorian.Datum;
 
 /**
+ * Maakt opdracht inmplementeer PersisteerbaarAlsTekst 
+ * dat Formatteert elk object naar een String die later opnieuw omgezet kan worden in een object.
  * @author java
  *
  */
@@ -18,22 +18,28 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 	private String juisteAntwoord;	
 	private int maxAantalPogingen;
 	private ArrayList<String> antwoordHints;
-	private int maxAntwoordTijd;  //Tijd in seconden. 0 = oneindig veel tijd.
+	private int maxAntwoordTijd;  //Tijd in seconden. 0 = oneindig
 	private Datum datumRegistratie;
 	private Leraar auteur;
 	private OpdrachtCategorie categorie;
 	private OpdrachtSoort opdrachtSoort; 
 	private int opdrachtId;
 	private List <QuizOpdracht> quizOpdrachten;
-	
+	/**
+	 * contructor met aantal pogingen, datum en maximum antoord tijd
+	 */
 	public Opdracht() {
 		super();
 		maxAantalPogingen = 1;
 		datumRegistratie = new Datum();
 		maxAntwoordTijd = 0;
 		
-		// TODO Auto-generated constructor stub
 	}	
+	/**
+	 * Overloaded contructor1 met vraag en juiste antwoord als String
+	 * @param vraag
+	 * @param juisteAntwoord
+	 */
 	
 	public Opdracht(String vraag, String juisteAntwoord) {
 		super();
@@ -44,9 +50,14 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 		maxAntwoordTijd = 0;
 		quizOpdrachten = new ArrayList<QuizOpdracht>();
 		
-		// TODO Auto-generated constructor stub
 	}
-	
+	/**
+	 * Overloaded contructor2 met vraag en juiste antoord als String, naam leraar en categorie
+	 * @param vraag
+	 * @param juisteAntwoord
+	 * @param auteur
+	 * @param categorie
+	 */
 	public Opdracht(String vraag, String juisteAntwoord, Leraar auteur,
 			OpdrachtCategorie categorie) {
 		super();
@@ -149,7 +160,10 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
-	 * equals methode is volledig gebaseerd op de vraag
+	 * 
+	 */
+	/**
+	 * Equals methode is volledig gebaseerd op de vraag
 	 * Als de vraag gelijk is worden twee opdrachten als gelijk beschouwd.
 	 */
 	@Override
@@ -216,7 +230,11 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 	public void verwijderdQuizOpdracht(QuizOpdracht quizOpdracht) {
 		quizOpdrachten.remove(quizOpdracht);
 	}
-	
+	/**
+	 * Maak string object met ":" als scheidingsteken
+	 * Vraag : JuisteAntwoord : MaxAantalPogingen : AntwoordHints : MaxAntwoordTijd
+	 * : Auteur : Categorie : OpdrachtSoort : OpdrachtId : QuizOpdrachten : DatumRegistratie
+	 */
 	@Override
 	public void maakObjectVanString(String lijn) throws Exception {
 		String[] velden = lijn.split(":");
@@ -232,7 +250,9 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 		this.setQuizOpdrachten(deformatteerQuizOpdrachten(velden[9]));
 		this.setDatumRegistratie(new DatumGregorian.Datum(velden[10]));
 	}
-
+/**
+ * Formateer string 
+ */
 	@Override
 	public String formatteerObjectNaarString() {
 		System.out.println(String.format("%s:%s", 
@@ -253,7 +273,11 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 		formatteerQuizOpdrachten(this.getQuizOpdrachten()),
 		this.getDatumRegistratie().toStringInEuropees());
 	}
-	
+	/**
+	 * Geef quiz opdrachten uit de lijst en formateer naar string met ";" als scheidingsteken
+	 * @param quizOpdrachten
+	 * @return
+	 */
 	private String formatteerQuizOpdrachten(
 			List<QuizOpdracht> quizOpdrachten) {
 		
@@ -263,7 +287,12 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 		}
 		return geformatteerdeQuizOprdrachten;
 	}
-	
+	/**
+	 * Deformateer quiz opdrachten van ArrayList met ";" als scheidingsteken
+	 * @param quizOpdrachten
+	 * @return
+	 * @throws Exception
+	 */
 	private ArrayList<QuizOpdracht> deformatteerQuizOpdrachten(String quizOpdrachten) throws Exception {
 		if (!quizOpdrachten.equals("null"))
 		{
@@ -282,6 +311,11 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 			return null;
 		}
 	}
+	/**
+	 * Maakt string van antwoord hints in ArrayList met ";" als scheidingsteken
+	 * @param antwoordHints
+	 * @return
+	 */
 	
 	private String formatteerAntwoordHints(
 			ArrayList<String> antwoordHints) {
@@ -299,7 +333,11 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 			return null;
 		}
 	}
-	
+	/**
+	 * Deformateer antwoord hints van ArrayList met ";" als scheidingsteken
+	 * @param antwoordHints
+	 * @return
+	 */
 	private ArrayList<String> deformatteerAntwoordHints(String antwoordHints)  {
 		if (!antwoordHints.equals("null"))
 		{
@@ -316,7 +354,11 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 			return null;
 		}
 	}
-	
+	/**
+	 * Deformateer leraar als String auteur
+	 * @param auteur
+	 * @return
+	 */
 	private Leraar deformatteerAuteur(String auteur) {
 		if(!auteur.equals("null"))
 		{
@@ -327,7 +369,11 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 			return null;
 		}
 	}
-	
+	/**
+	 * Defotmateer opdracht categorie ans String
+	 * @param opdrachtCategorie
+	 * @return
+	 */
 	private OpdrachtCategorie deformatteerOpdrachtCategorie(String opdrachtCategorie) {
 		if(!opdrachtCategorie.equals("null"))
 		{

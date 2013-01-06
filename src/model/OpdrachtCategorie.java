@@ -1,9 +1,8 @@
-/**
- * 
- */
+
 package model;
 
 /**
+ * Enum opdracht categorie
  * @author java
  *
  */
