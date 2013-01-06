@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package model;
 
 import exceptions.OpdrachtNietGevondenException;
@@ -8,28 +6,41 @@ import exceptions.QuizNietGevondenException;
 import exceptions.QuizNietWijzigbaarException;
 
 /**
+ * Maakt opdrachten en Max score
  * @author java
- *
  */
 public class QuizOpdracht implements PersisteerbaarAlsTekst {
 
 	private int quizId;
 	private int opdrachtId;
 	private int maxScore;
-
+/**
+ * Constructor 
+ * @param quiz
+ * @param opdracht
+ * @param maxScore
+ */
 	private QuizOpdracht (Quiz quiz, Opdracht opdracht, int maxScore){
 		this.quizId = quiz.getQuizId();
 		this.opdrachtId = opdracht.getOpdrachtId();
 		this.maxScore = maxScore;
 	}
 		
+	/**
+	 * Overloaded constructor met quizId, opdrachtId en maxScore
+	 * @param quizId
+	 * @param opdrachtId
+	 * @param maxScore
+	 */
 	public QuizOpdracht(int quizId, int opdrachtId, int maxScore) {
 		super();
 		this.quizId = quizId;
 		this.opdrachtId = opdrachtId;
 		this.maxScore = maxScore;
 	}
-
+	/**
+	 * constructor
+	 */
 	public QuizOpdracht() {
 		super();
 	}
@@ -42,6 +53,17 @@ public class QuizOpdracht implements PersisteerbaarAlsTekst {
 		opdracht.voegQuizOpdrachtToe(quizOpdracht);
 	}
 */	
+	/**
+	 * Koppel opdracht aan een quiz
+	 * @param quizCatalogus
+	 * @param opdrachtCatalogus
+	 * @param quiz
+	 * @param opdracht
+	 * @param maxScore
+	 * @throws QuizNietWijzigbaarException
+	 * @throws QuizNietGevondenException
+	 * @throws OpdrachtNietGevondenException
+	 */
 	public static void koppelOpdrachtAanQuiz(QuizCatalogus quizCatalogus,
 			OpdrachtCatalogus opdrachtCatalogus, Quiz quiz, Opdracht opdracht,
 			int maxScore) throws QuizNietWijzigbaarException, QuizNietGevondenException, OpdrachtNietGevondenException {
@@ -53,6 +75,16 @@ public class QuizOpdracht implements PersisteerbaarAlsTekst {
 		opdrachtCatalogus.wijzigOpdracht(opdracht);		
 	}
 
+	/**
+	 * Ontkppel opdracht van een quiz in quiz catalogus
+	 * @param quizCatalogus
+	 * @param opdrachtCatalogus
+	 * @param quiz
+	 * @param opdracht
+	 * @throws QuizNietWijzigbaarException
+	 * @throws QuizNietGevondenException
+	 * @throws OpdrachtNietGevondenException
+	 */
 	public void ontKoppelOpdrachtVanQuiz(QuizCatalogus quizCatalogus, OpdrachtCatalogus opdrachtCatalogus,  Quiz quiz, Opdracht opdracht) throws QuizNietWijzigbaarException, QuizNietGevondenException, OpdrachtNietGevondenException{
 //		quizcatalogus.verwijderQuizOpdracht(this);
 //		opdrachtCatalogus.verwijderQuizOpdracht(this);
@@ -125,6 +157,9 @@ public class QuizOpdracht implements PersisteerbaarAlsTekst {
 				+ ", maxScore=" + maxScore + "]";
 	}
 
+	/**
+	 * Object van string met velden QuizId, OpdrachtId en MaxScore met " " scheidingsteken
+	 */
 	@Override
 	public void maakObjectVanString(String lijn) throws Exception {
 		String[] velden = lijn.split(" ");
@@ -133,13 +168,14 @@ public class QuizOpdracht implements PersisteerbaarAlsTekst {
 		this.setMaxScore((Integer.parseInt(velden[2])));
 	}
 
+	/**
+	 *Object naar string 
+	 */
 	@Override
 	public String formatteerObjectNaarString() {
 		return  String.format("%s %s %s", 
 				this.getQuizId(),
 				this.getOpdrachtId(),
 				this.getMaxScore());
-	}
-
-		
+	}		
 }

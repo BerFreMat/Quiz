@@ -1,4 +1,3 @@
-
 package model;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import exceptions.MaandException;
 import utils.Datum;
 
 /**
- *  Class voor het aanmaken van een Quiz
+ *  lass voor het aanmaken van een Quiz
  @author
  *
  */
@@ -46,7 +45,7 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 
 	
 	/**
-	 * *default constructor for Quiz
+	 * Default constructor for Quiz
 	 * QuizStatus = IN_CONSTRUCTIE
 	 * datumRegistratie = new Datum
 	 * @throws MaandException 
@@ -64,7 +63,8 @@ public class Quiz implements Serializable, PersisteerbaarAlsTekst {
 		quizOpdrachten = new ArrayList <QuizOpdracht>();
 	}
 	
-	/**Constructor met imput parameters 
+	/**
+	 * Constructor met imput parameters 
 	 * @throws MaandException 
 	 * @throws DagException 
 	 *@params onderwerp, isTest, isUniekeDeelname, auteur

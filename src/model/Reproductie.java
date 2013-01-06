@@ -2,17 +2,33 @@ package model ;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Maakt reproductie opdrachten met trefwoorden
+ * @author java
+ *
+ */
 public class Reproductie  extends Opdracht 
 {
 	private List<String> trefwoorden;
 	private int minAantalJuisteTrefwoorden;
 	
+	/**
+	 * Default constructor
+	 */
 	public Reproductie() {
 		super();
 
 	}
 	
+	/**
+	 * Constructor met extra parameters
+	 * @param vraag
+	 * @param juisteAntwoord
+	 * @param auteur
+	 * @param categorie
+	 * @param trefwoorden
+	 * @param minAantalJuisteTrefwoorden
+	 */
 	public Reproductie(String vraag, String juisteAntwoord, Leraar auteur,
 			OpdrachtCategorie categorie,List<String> trefwoorden, int minAantalJuisteTrefwoorden )
 	{
@@ -38,6 +54,9 @@ public class Reproductie  extends Opdracht
 		this.minAantalJuisteTrefwoorden = minAantalJuisteTrefwoorden;
 	} 
 	
+	/**
+	 * Check of antwoord is juist
+	 */
 	@Override
 	public boolean isJuisteAntwoord(String antwoord){
 		int aantalGegevenTrefwoorden =0;

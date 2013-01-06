@@ -108,7 +108,7 @@ public class Meerkeuze  extends Opdracht implements Valideerbaar {
 		}
 	}
 	/**
-	 * Deformateer keuzen in array 
+	 * Deformateer keuzen in arraylist
 	 * @param keuzen
 	 * @return
 	 */

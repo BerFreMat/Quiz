@@ -26,7 +26,7 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 	private int opdrachtId;
 	private List <QuizOpdracht> quizOpdrachten;
 	/**
-	 * contructor met aantal pogingen, datum en maximum antoord tijd
+	 * constructor met aantal pogingen, datum en maximum antwoord tijd
 	 */
 	public Opdracht() {
 		super();
@@ -36,7 +36,7 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 		
 	}	
 	/**
-	 * Overloaded contructor1 met vraag en juiste antwoord als String
+	 * Overloaded constructor1 met vraag en juiste antwoord als String
 	 * @param vraag
 	 * @param juisteAntwoord
 	 */
@@ -52,7 +52,7 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 		
 	}
 	/**
-	 * Overloaded contructor2 met vraag en juiste antoord als String, naam leraar en categorie
+	 * Overloaded constructor2 met vraag en juiste antoord als String, naam leraar en categorie
 	 * @param vraag
 	 * @param juisteAntwoord
 	 * @param auteur

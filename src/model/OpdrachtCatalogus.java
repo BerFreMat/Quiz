@@ -78,7 +78,10 @@ public class OpdrachtCatalogus extends FileContainer {
 			opdrachten.set(positieOpdracht, opdracht);
 		}	
 	}
-	
+	/**
+	 * Verwijderd opdracht
+	 * @param quizOpdracht
+	 */
 	public void verwijderdQuizOpdracht(QuizOpdracht quizOpdracht) {
 		for(Opdracht opdracht : opdrachten)
 		{
@@ -89,6 +92,11 @@ public class OpdrachtCatalogus extends FileContainer {
 		}
 		
 	}
+	/**
+	 * Haalt opdrachtId
+	 * @param opdrachtId
+	 * @return
+	 */
 	public Opdracht getOpdracht(int opdrachtId) {
 		for(Opdracht opd : opdrachten)
 		{
@@ -97,7 +105,11 @@ public class OpdrachtCatalogus extends FileContainer {
 		}
 		return null;
 	}
-	
+	/**
+	 * Haalt opdrachte op opdrachtId
+	 * @param quizOpdracht
+	 * @return
+	 */
 	public Opdracht getOpdracht(QuizOpdracht quizOpdracht) {
 		for(Opdracht opd : opdrachten)
 		{
@@ -107,12 +119,16 @@ public class OpdrachtCatalogus extends FileContainer {
 		return null;
 	}
 
-	
+	/**
+	 * Haalt string van bestand "opdracht.txt"
+	 */
 	@Override
 	public String getFile() {
 		return "opdracht.txt";
 	}
-	
+	/**
+	 * Deformateer de string en sorteer opdracht volgens soort
+	 */
 	@Override
 	public void deformatteerLijn(String lijn) throws Exception {
 		String[] gesplit = lijn.split("#");
@@ -134,17 +150,21 @@ public class OpdrachtCatalogus extends FileContainer {
 		default:
 			opdracht = null;
 		}
-		
-		
 		opdracht.maakObjectVanString(gesplit[1]);
 		this.voegOpdrachtToe(opdracht);
 	}
+	/**
+	 * Zet de opdrachte in de List teSchrijvenLijst
+	 */
 	@Override
 	public List teSchrijvenLijst() {
 		List teSchrijvenLijst ;
 		teSchrijvenLijst = opdrachten;
 		return teSchrijvenLijst;
 	}
+	/**
+	 * Formateer object opdracht als string met "#" als scheidingsteken
+	 */
 	@Override
 	public String formatteerObject(Object obj) 
 	{
@@ -168,6 +188,11 @@ public class OpdrachtCatalogus extends FileContainer {
 		}
 	}
 	
+	/**
+	 * Get opdrachten van een bepaalde soort
+	 * @param opdrachtsoort
+	 * @return
+	 */
 	
 	public List<Opdracht> getOpdrVanType(OpdrachtSoort opdrachtsoort)
 	{
@@ -187,6 +212,11 @@ public class OpdrachtCatalogus extends FileContainer {
 		return opdrachtenVanType;
 	}	
 	
+	/**
+	 * Get opdracht van een bepaalde categorie
+	 * @param opdrachtCategorie
+	 * @return
+	 */
 	public List<Opdracht> getOpdrVanCategorie(OpdrachtCategorie opdrachtCategorie)
 	{
 		List<Opdracht> opdrachtenVanCategorie = new ArrayList<Opdracht>();
@@ -205,7 +235,10 @@ public class OpdrachtCatalogus extends FileContainer {
 		}
 		return opdrachtenVanCategorie;
 	}
-	
+	/**
+	 * Voeg opdrachten van een quiz volgens Id
+	 * @param quiz
+	 */
 	public void voegQuizToe(Quiz quiz) {
 		if (quiz != null)
 		{
@@ -221,9 +254,13 @@ public class OpdrachtCatalogus extends FileContainer {
 	
 	@Override
 	public String toString() {
-		return "OpdrachtCatalogus [opdrachten=" + opdrachten + "]";
+		return "Opdracht Catalogus [opdrachten=" + opdrachten + "]";
 	}
 	
+	/**
+	 * Control opdracht Id
+	 * @return
+	 */
 	public int getMaxOpdrachtId()
 	{
 		int i = 0;

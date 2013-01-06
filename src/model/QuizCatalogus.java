@@ -22,6 +22,7 @@ import DatumGregorian.Datum;
 public class QuizCatalogus extends FileContainer {
 	
 	private List<Quiz> quizen;
+	
 /**
  * default constructor en maakt arraylist Quiz
  */

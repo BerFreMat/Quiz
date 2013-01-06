@@ -1,10 +1,8 @@
 package model;
 
 /**
- * @author Matias
- * 
- * enums for quiz status
- *
+ * Enums for quiz status
+ * @author 
  */
 public enum QuizStatus {
 	IN_CONSTRUCTIE("Deze quiz in nog in constructie"),
