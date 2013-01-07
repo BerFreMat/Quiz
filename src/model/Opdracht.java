@@ -25,6 +25,7 @@ public abstract class Opdracht implements PersisteerbaarAlsTekst {
 	private OpdrachtSoort opdrachtSoort; 
 	private int opdrachtId;
 	private List <QuizOpdracht> quizOpdrachten;
+	
 	/**
 	 * constructor met aantal pogingen, datum en maximum antwoord tijd
 	 */

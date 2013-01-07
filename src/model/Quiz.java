@@ -11,7 +11,7 @@ import exceptions.MaandException;
 import utils.Datum;
 
 /**
- *  lass voor het aanmaken van een Quiz
+ *Class voor het aanmaken van een Quiz
  @author
  *
  */
