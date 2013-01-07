@@ -19,7 +19,7 @@ public class OpdrachtCatalogus extends FileContainer {
 	private ArrayList<Opdracht> opdrachten;
 
 	/**
-	 * List van opdrachten in een array
+	 * Constructor List van opdrachten in een array
 	 * @return
 	 */
 	public ArrayList<Opdracht> getOpdrachten() {
